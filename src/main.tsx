@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import { LoginPage } from "./LoginPage";
+import { RegisterPage } from "./pages/RegisterPage";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <LoginPage />
+    <RegisterPage />
   </React.StrictMode>
 );

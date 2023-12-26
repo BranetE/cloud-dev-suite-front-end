@@ -1,0 +1,14 @@
+.registerForm 
+{
+  width: 100%;
+  padding: 70px 50px;
+  flex-basis: 500px;
+  box-shadow: 1px 1px 20px rgba(200, 200, 200, 1);
+  border-radius: 0.3cm;
+  background-color: #fff;
+}
+
+.logo {
+  height: 70px;
+  width: 350px;
+}

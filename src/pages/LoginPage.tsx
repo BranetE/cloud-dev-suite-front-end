@@ -1,7 +1,7 @@
 import { Button, Form, Input} from "antd";
-import "./LoginPage.css";
+import styles from "./LoginPage.module.css";
 import FormItem from "antd/es/form/FormItem";
-import logo from "./assets/logo.png";
+import logo from "assets/logo.png";
 
 const onFinish = (values: any) => {
   console.log("Success:", values);
@@ -21,17 +21,16 @@ export function LoginPage(): JSX.Element {
   return (
     <Form
       name="basic"
-      className="loginForm"
+      className={styles.loginForm}
       labelCol={{ span: 7 }}
       wrapperCol={{ span: 16 }}
       style={{ maxWidth: 600 }}
-      initialValues={{ remember: true }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
       autoComplete="off"
     >
       <FormItem>
-        <img className="logo" src={logo} alt="CLOUD DEV SUITE" />
+        <img className={styles.logo} src={logo} alt="CLOUD DEV SUITE" />
       </FormItem>
 
       <Form.Item<FieldType>
