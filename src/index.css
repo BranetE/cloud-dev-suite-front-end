@@ -3,7 +3,7 @@
   line-height: 1.5;
   font-weight: 400;
 
-  /* color-scheme: light dark; */
+  background-color: rgba(240, 240, 240, 0.979);
   color: rgba(255, 255, 255, 0.87);
 
   font-synthesis: none;
@@ -16,6 +16,7 @@ body {
   display: flex;
   place-items: center;
   justify-content: center;
+  flex-basis: content;
   min-width: 320px;
   min-height: 100vh;
 }
