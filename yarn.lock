@@ -1275,6 +1275,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "cloud-dev-suite@workspace:."
   dependencies:
+    "@ant-design/icons": "npm:^5.2.6"
     "@types/react": "npm:^18.2.43"
     "@types/react-dom": "npm:^18.2.17"
     "@typescript-eslint/eslint-plugin": "npm:^6.14.0"

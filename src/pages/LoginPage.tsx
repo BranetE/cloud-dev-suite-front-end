@@ -49,14 +49,6 @@ export function LoginPage(): JSX.Element {
         <Input.Password />
       </Form.Item>
 
-      {/* <Form.Item<FieldType>
-        name="remember"
-        valuePropName="checked"
-        wrapperCol={{ offset: 8, span: 16 }}
-      >
-        <Checkbox>Remember me</Checkbox>
-      </Form.Item> */}
-
       <Form.Item<FieldType>
         wrapperCol={{ offset: 7, span: 16 }}
         >

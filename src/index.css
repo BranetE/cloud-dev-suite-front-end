@@ -12,14 +12,14 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
+/* body {
   display: flex;
   place-items: center;
   justify-content: center;
   flex-basis: content;
   min-width: 320px;
   min-height: 100vh;
-}
+} */
 
 h1 {
   font-size: 3.2em;
