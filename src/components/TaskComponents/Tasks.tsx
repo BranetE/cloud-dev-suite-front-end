@@ -51,7 +51,7 @@ export function Tasks(): JSX.Element {
     return(
         <List
             className={styles.container}
-            grid={{ gutter: 16, column: 5 }}
+            grid={{ gutter: 16, column: 6 }}
             dataSource={data}
             renderItem={(item) => (
         <List.Item>

@@ -2,7 +2,8 @@
     margin-top: 5%;
     color: black;
     text-align: center;
-    width: 15%;
+    font-size: large;
+    /* width: 15%; */
 }
 
 .email {

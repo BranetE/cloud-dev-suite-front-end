@@ -4,7 +4,7 @@ import styles from "./Sprint.module.css"
 interface SprintProps {
     title: string;
     startDate: string;
-    endDate: string;
+    endDate?: string;
     status: string
 }
 
