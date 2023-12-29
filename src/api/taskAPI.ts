@@ -10,9 +10,9 @@ export const taskApi = {
     },
     getAllTasksByEmployee(employeeId: number) {
         return instance.get<TaskType[]>(`/task/getAllByEmployeeId/${employeeId}`)
-    }
+    },
     getTask(taskId: number) {
-        return instance.get<TaskType[]>(`/task/${taskId}`)
+        return instance.get<TaskType>(`/task/${taskId}`)
     },
     changeStatus(taskId: number) {
         return instance.patch(`/task/${taskId}`)

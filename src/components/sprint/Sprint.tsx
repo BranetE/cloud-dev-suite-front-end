@@ -1,14 +1,7 @@
+import { SprintType } from "types/SprintTypes"
 import styles from "./Sprint.module.css"
 
-
-interface SprintProps {
-    title: string;
-    startDate: string;
-    endDate?: string;
-    status: string
-}
-
-export function Sprint(props: SprintProps): JSX.Element {
+export function Sprint(props: SprintType): JSX.Element {
     return (
         <div className={styles.container}>
             <div>

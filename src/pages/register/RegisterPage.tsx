@@ -2,9 +2,12 @@ import { Button, Form, Input, Select} from "antd";
 import FormItem from "antd/es/form/FormItem";
 import logo from "assets/logo.png";
 import styles from "./RegisterPage.module.css"
+import { authAPI } from "api/authAPI";
 
 
-const onFinish = (values: any) => {};
+const onFinish = (values: FieldType) => {
+    authAPI.register(values)
+};
 
 const onFinishFailed = (values: any) => {};
 
@@ -13,8 +16,9 @@ type FieldType = {
     firstName?: string;
     lastName?: string;
     position?: string;
+    experience?: string,
     password?: string;
-    confirmPassword?: string
+    // confirmPassword?: string
 };
 
 const positions = [
@@ -29,6 +33,21 @@ const positions = [
     {
         value: 'DESIGNER',
         label: 'Designer'
+    }
+];
+
+const experiences = [
+    {
+        value: 'JUNIOR',
+        label: 'Junior'
+    },
+    {
+        value: 'MIDDLE',
+        label: 'Middle'
+    },
+    {
+        value: 'SENIOR',
+        label: 'Senior'
     }
 ];
 export function RegisterPage(): JSX.Element {
@@ -79,6 +98,14 @@ export function RegisterPage(): JSX.Element {
             </Form.Item>
 
             <Form.Item<FieldType>
+                label="experience"
+                name="experience"
+                rules={[{ required: true, message: "Please input your position!" }]}
+            >
+                <Select defaultValue={'JUNIOR'} options={experiences}/>
+            </Form.Item>
+
+            <Form.Item<FieldType>
                 label="Password"
                 name="password"
                 rules={[{ required: true, message: "Please input your password!" }]}
@@ -86,7 +113,7 @@ export function RegisterPage(): JSX.Element {
                 <Input.Password />
             </Form.Item>
 
-            <Form.Item<FieldType>
+            {/* <Form.Item<FieldType>
                 label="Confirm password"
                 name="confirmPassword"
                 rules={[{ required: true, message: "Please confirm your password!" }, 
@@ -101,7 +128,7 @@ export function RegisterPage(): JSX.Element {
             ]}
             >
                 <Input.Password />
-            </Form.Item>
+            </Form.Item> */}
 
             <Form.Item
                 style={{margin: 0}} 

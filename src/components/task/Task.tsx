@@ -1,28 +1,32 @@
+import { TaskType } from "types/TaskTypes"
 import { ProgressIcon } from "./ProgressIcon"
 import styles from "./Task.module.css"
+import { useEffect, useState } from "react"
+import { taskApi } from "api/taskAPI"
 
-interface TaskProps {
-    title: string,
-    description: string,
-    status: string,
-    comment?: string,
-    finishTime: string
-}
+export function Task({taskId}: {taskId:number}): JSX.Element {
 
-export function Task(props: TaskProps): JSX.Element {
+    const [task, setTask] = useState<TaskType>()
+
+    useEffect(() => {
+      taskApi.getTask(taskId)
+      .then(res => setTask(res.data))
+    }, [taskId])
+    
+
     return (
         <div className={styles.container}>
             <div className={styles.headerPart}>
-                <h2>{props.title}</h2>
+                <h2>{task.title}</h2>
                 {/* <p>Employee: <b></b></p> */}
-                <p>Finish Time: <b>{props.finishTime}</b></p>
+                <p>Finish Time: <b>{task.finishTime}</b></p>
             </div>
             <div>
-                <h4><ProgressIcon status={props.status}/> {props.status}</h4>
+                <h4><ProgressIcon status={task.status}/> {task.status}</h4>
             </div>
             <div>
                 <h4>Description</h4>
-                <p>{props.description}</p>
+                <p>{task.description}</p>
             </div>
         </div>
     )

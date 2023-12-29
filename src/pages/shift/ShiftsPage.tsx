@@ -1,8 +1,8 @@
 import { Layout } from "antd";
 import Sider from "antd/es/layout/Sider";
 import { Content } from "antd/es/layout/layout";
-import { Shift } from "components/ShiftComponents/Shift";
-import { Tasks } from "components/TaskComponents/Tasks";
+import { Shift } from "components/shift/Shift";
+// import { Tasks } from "components/task/Tasks";
 
 const LayoutStyle = {
     backgroundColor: "rgba(240, 240, 240, 0.979)",
@@ -31,7 +31,7 @@ export function ShiftsPage(): JSX.Element {
         </Sider>
         <Layout>
           <Content>
-            <Tasks/>
+            {/* <Tasks/> */}
           </Content>
         </Layout>
       </Layout>

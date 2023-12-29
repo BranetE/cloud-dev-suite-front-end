@@ -4,10 +4,11 @@ export interface CreateTaskRequest {
     sprintId: number
 }
 
-export interface TaskType {
+export type TaskType = {
+    id: number
     title: string,
     description: string,
     status: string,
-    comment?: string,
+    comment: string,
     finishTime: string
 }

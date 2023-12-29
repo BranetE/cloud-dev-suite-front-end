@@ -8,11 +8,6 @@ import { Tasks } from "components/task/Tasks";
 import { useEffect, useState } from "react";
 import { employeeApi } from "api/employeeAPI";
 import { EmployeeType } from "types/EmployeeTypes";
-import { ShiftType } from "types/ShiftTypes";
-import { TaskType } from "types/TaskTypes";
-import { ProjectType } from "types/ProjectTypes";
-import { shiftApi } from "api/shiftAPI";
-import { taskApi } from "api/taskAPI";
 
 const LayoutStyle = {
     backgroundColor: "rgba(240, 240, 240, 0.979)",
@@ -38,21 +33,12 @@ export function EmployeePage(): JSX.Element {
     
     const [contentType, setContentType] = useState<string>("shift")
     const [employee, setEmployee] = useState<EmployeeType>()
-    const [content, setContent] = useState<ShiftType[] | TaskType[] | ProjectType[]>()
 
     useEffect(() => {
       employeeApi.getEmployee(1)
         .then(res => setEmployee(res.data)
         )
     }, [])
-
-    useEffect(() => {
-      () => {
-        if(contentType === `shifts`) return shiftApi.getAllShiftsByEmployee(1)
-        if(contentType === "tasks") return taskApi.getAllTasksByEmployee(1)
-        if(contentType === "projects") return taskApi.getAllTasksByEmployee(1)
-      }
-    })
     
     return(
     <Layout style={LayoutStyle}>
@@ -74,15 +60,15 @@ export function EmployeePage(): JSX.Element {
           </Header>
 
           <Content>
-            <RenderCorrectView content={contentType}/>
+            <RenderCorrectView contentType={contentType}/>
           </Content>
         </Layout>
       </Layout>
     )
 }
 
-function RenderCorrectView({content}: {content: string}): JSX.Element {
-    if(content === "projects") return <Projects/>
-    else if(content === "tasks") return <Tasks/>
+function RenderCorrectView({contentType}: {contentType: string}): JSX.Element {
+    if(contentType === "projects") return <Projects />
+    else if(contentType === "tasks") return <Tasks/>
     else return <Shifts/>
 }

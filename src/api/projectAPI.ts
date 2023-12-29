@@ -5,6 +5,9 @@ export const projectApi = {
     createProject(request: CreateProjectRequest) {
         return instance.post(`/project`, request)
     },
+    getAllProjectsByEmployee(employeeId: number) {
+        return instance.get(`/project/getByEmployee/${employeeId}`)
+    },
     getProject(projectId: number) {
         return instance.get(`/project/${projectId}`)
     },

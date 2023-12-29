@@ -1,6 +1,9 @@
 import { List, Card } from "antd"
 import styles from "./Shifts.module.css"
 import { CloudTwoTone, HomeTwoTone } from "@ant-design/icons";
+import { ShiftType } from "types/ShiftTypes";
+import { useEffect, useState } from "react";
+import { shiftApi } from "api/shiftAPI";
 
 interface Shift {
     shiftType: string;
@@ -8,51 +11,60 @@ interface Shift {
     endTime: string;
 }
 
-const data: Array<Shift> = [
-    {
-        shiftType: "From Home",
-        startTime: "10/11/2023",
-        endTime: "11/11/2023"
-    },
-    {
-        shiftType: "Remote",
-        startTime: "10/11/2023",
-        endTime: "11/11/2023"
-    },
-    {
-        shiftType: "From Home",
-        startTime: "10/11/2023",
-        endTime: "11/11/2023"
-    },
-    {
-        shiftType: "From Home",
-        startTime: "10/11/2023",
-        endTime: "11/11/2023"
-    },
-    {
-        shiftType: "Remote",
-        startTime: "10/11/2023",
-        endTime: "11/11/2023"
-    },
-    {
-        shiftType: "From Home",
-        startTime: "10/11/2023",
-        endTime: "11/11/2023"
-    },
-    {
-        shiftType: "From Home",
-        startTime: "10/11/2023",
-        endTime: "11/11/2023"
-    },
+// const data: Array<Shift> = [
+//     {
+//         shiftType: "From Home",
+//         startTime: "10/11/2023",
+//         endTime: "11/11/2023"
+//     },
+//     {
+//         shiftType: "Remote",
+//         startTime: "10/11/2023",
+//         endTime: "11/11/2023"
+//     },
+//     {
+//         shiftType: "From Home",
+//         startTime: "10/11/2023",
+//         endTime: "11/11/2023"
+//     },
+//     {
+//         shiftType: "From Home",
+//         startTime: "10/11/2023",
+//         endTime: "11/11/2023"
+//     },
+//     {
+//         shiftType: "Remote",
+//         startTime: "10/11/2023",
+//         endTime: "11/11/2023"
+//     },
+//     {
+//         shiftType: "From Home",
+//         startTime: "10/11/2023",
+//         endTime: "11/11/2023"
+//     },
+//     {
+//         shiftType: "From Home",
+//         startTime: "10/11/2023",
+//         endTime: "11/11/2023"
+//     },
 
-]
+// ]
 
 export function Shifts(): JSX.Element {
+
+    const [shifts, setShifts] = useState<ShiftType[]>();
+
+    useEffect(() => {
+        shiftApi.getAllShiftsByEmployee(1)
+        .then(res => setShifts(res.data))
+    }, [])
+    
+
     return(
         <List
             className={styles.container}
             grid={{ gutter: 16, column: 6 }}
-            dataSource={data}
+            dataSource={shifts}
             renderItem={(item) => (
         <List.Item>
             <Card className={styles.shift}>

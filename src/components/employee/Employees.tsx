@@ -1,25 +1,29 @@
 import { List, Avatar } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import styles from "./Employees.module.css"
+import { EmployeeType } from "types/EmployeeTypes";
 
-interface Employee {
-    email: string,
-    firstName: string,
-    lastName: string,
-    position: string,
-    experience: string
-} 
+// interface Employee {
+//     email: string,
+//     firstName: string,
+//     lastName: string,
+//     position: string,
+//     experience: string
+// } 
  
-const data: Array<Employee> = [
-    {
-        email: "email@mail.com",
-        firstName: "Employee",
-        lastName: "Employee",
-        position: "Developer",
-        experience: "Middle"
-    }
-]
- export function Employees(): JSX.Element {
+// const data: Array<Employee> = [
+//     {
+//         email: "email@mail.com",
+//         firstName: "Employee",
+//         lastName: "Employee",
+//         position: "Developer",
+//         experience: "Middle"
+//     }
+// ]
+ export function Employees(data: EmployeeType[]): JSX.Element {
+
+    
+
     return (
         <List
             className={styles.container}

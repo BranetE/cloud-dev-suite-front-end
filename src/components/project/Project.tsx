@@ -1,6 +1,7 @@
+import { ProjectType } from "types/ProjectTypes"
 import styles from "./Project.module.css"
 
-export function Project(props: ProjectProps): JSX.Element {
+export function Project(props: ProjectType): JSX.Element {
     return (
         <div className={styles.container}>
             <h2>{props.title}</h2>
