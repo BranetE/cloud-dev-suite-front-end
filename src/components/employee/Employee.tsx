@@ -2,16 +2,9 @@ import { Button } from "antd"
 import Avatar from "antd/es/avatar/avatar"
 import { UserOutlined } from "@ant-design/icons";
 import styles from "./Employee.module.css"
+import { EmployeeType } from "types/EmployeeTypes";
 
-interface EmoloyeeProps {
-    email: string;
-    firstName: string;
-    lastName: string;
-    position: string;
-    experience: string;
-}
-
-export function Employee(props: EmoloyeeProps): JSX.Element {
+export function Employee(props: EmployeeType): JSX.Element {
     return (
         <div className={styles.employee}>
             <Avatar size={64} icon={<UserOutlined />} />

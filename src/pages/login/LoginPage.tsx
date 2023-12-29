@@ -2,19 +2,19 @@ import { Button, Form, Input} from "antd";
 import styles from "./LoginPage.module.css";
 import FormItem from "antd/es/form/FormItem";
 import logo from "assets/logo.png";
+import { authAPI } from "api/authAPI";
 
-const onFinish = (values: any) => {
-  console.log("Success:", values);
+const onFinish = (values: FieldType) => {
+  authAPI.login(values)
 };
 
-const onFinishFailed = (errorInfo: any) => {
+const onFinishFailed = (errorInfo: unknown) => {
   console.log("Failed:", errorInfo);
 };
 
 type FieldType = {
-  email?: string;
-  password?: string;
-  registerLink?: string;
+  email: string;
+  password: string;
 };
 
 export function LoginPage(): JSX.Element {
