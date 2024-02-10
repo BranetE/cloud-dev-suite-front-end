@@ -4,6 +4,7 @@ export interface CreateSprintRequest {
 }
 
 export type SprintType = {
+    id?: number
     title?: string,
     status?: string,
     startDate?: string,

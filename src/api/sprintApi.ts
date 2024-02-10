@@ -3,7 +3,7 @@ import { instance } from "./axiosConfig"
 
 export const sprintApi = {
     getSprint(sprintId: number) {
-        return instance.get(`/sprint/${sprintId}`)
+        return instance.get<SprintType>(`/sprint/${sprintId}`)
     },
     startSprint(request: CreateSprintRequest){
         return instance.post(`/sprint/start`, request)

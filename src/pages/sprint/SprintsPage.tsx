@@ -2,28 +2,26 @@ import { Layout } from "antd";
 import Sider from "antd/es/layout/Sider";
 import { Content } from "antd/es/layout/layout";
 import { sprintApi } from "api/sprintApi";
+import { taskApi } from "api/taskAPI";
 import { Sprint } from "components/sprint/Sprint";
 import { Tasks } from "components/task/Tasks";
+import { LayoutStyle, SiderStyle } from "pages/styles/Styles";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { SprintType } from "types/SprintTypes";
+import { TaskType } from "types/TaskTypes";
 
-const LayoutStyle = {
-    backgroundColor: "rgba(240, 240, 240, 0.979)",
-}
-
-const SiderStyle = {
-    // paddingTop: "3%",
-    marginLeft: "0", 
-    backgroundColor: "rgba(240, 240, 240, 0.979)",
-}
-
-export function SprintsPage({sprintId}: {sprintId: number}): JSX.Element {
-    
+export function SprintsPage(): JSX.Element {
+   
+  const sprintId = Number(useParams())
   const [sprint, setSprint] = useState<SprintType>()
+  const [tasks, setTasks] = useState<TaskType[]>([])
 
   useEffect(() => {
     sprintApi.getSprint(sprintId)
     .then(res => setSprint(res.data))
+    taskApi.getAllTasksBySprint(sprintId)
+    .then(res => setTasks(res.data))
   }, [sprintId])
   
   
@@ -39,7 +37,7 @@ export function SprintsPage({sprintId}: {sprintId: number}): JSX.Element {
         </Sider>
         <Layout>
           <Content>
-            <Tasks sprintId={sprintId}/>
+            <Tasks {...tasks}/>
           </Content>
         </Layout>
       </Layout>

@@ -1,7 +1,7 @@
 import { Progress, ProgressProps } from "antd"
 
 
-export function ProgressIcon({status}: { status: string }): JSX.Element {
+export function ProgressIcon({status}: { status?: string }): JSX.Element {
     const progressProps: ProgressProps = {
         type: "circle",
         trailColor: "#a4a5a6",

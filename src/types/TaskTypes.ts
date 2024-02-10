@@ -4,11 +4,11 @@ export interface CreateTaskRequest {
   sprintId: number;
 }
 
-export type TaskType = {
-  id: number;
-  title: string;
-  description: string;
-  status: string;
-  comment: string;
+export interface TaskType  {
+  id?: number;
+  title?: string;
+  description?: string;
+  status?: string;
+  comment?: string;
   finishTime?: string;
-};
+}

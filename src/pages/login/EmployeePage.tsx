@@ -8,6 +8,9 @@ import { Tasks } from "components/task/Tasks";
 import { useEffect, useState } from "react";
 import { employeeApi } from "api/employeeAPI";
 import { EmployeeType } from "types/EmployeeTypes";
+import { useParams } from "react-router-dom";
+import { taskApi } from "api/taskAPI";
+import { TaskType } from "types/TaskTypes";
 
 const LayoutStyle = {
     backgroundColor: "rgba(240, 240, 240, 0.979)",
@@ -31,15 +34,25 @@ const ButtonStyle = {
 
 export function EmployeePage(): JSX.Element {
     
+    const employeeId = Number(useParams())
     const [contentType, setContentType] = useState<string>("shift")
     const [employee, setEmployee] = useState<EmployeeType>()
+    const [tasks, setTasks] = useState<TaskType[]>([])
 
     useEffect(() => {
-      employeeApi.getEmployee(1)
+      employeeApi.getEmployee(employeeId)
         .then(res => setEmployee(res.data)
         )
-    }, [])
+      taskApi.getAllTasksByEmployee(employeeId)
+        .then(res => setTasks(res.data))
+    }, [employeeId])
     
+    const RenderCorrectView = ({contentType}: {contentType: string}): JSX.Element => {
+      if(contentType === "projects") return <Projects />
+      else if(contentType === "tasks") return <Tasks {...tasks}/>
+      else return <Shifts/>
+  }
+
     return(
     <Layout style={LayoutStyle}>
         <Sider width="15%" style={SiderStyle}>
@@ -65,10 +78,4 @@ export function EmployeePage(): JSX.Element {
         </Layout>
       </Layout>
     )
-}
-
-function RenderCorrectView({contentType}: {contentType: string}): JSX.Element {
-    if(contentType === "projects") return <Projects />
-    else if(contentType === "tasks") return <Tasks/>
-    else return <Shifts/>
 }

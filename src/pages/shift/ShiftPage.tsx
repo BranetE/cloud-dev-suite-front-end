@@ -2,19 +2,25 @@ import { Layout } from "antd";
 import Sider from "antd/es/layout/Sider";
 import { Content } from "antd/es/layout/layout";
 import { Shift } from "components/shift/Shift";
-// import { Tasks } from "components/task/Tasks";
-
-const LayoutStyle = {
-    backgroundColor: "rgba(240, 240, 240, 0.979)",
-}
-
-const SiderStyle = {
-    // paddingTop: "3%",
-    marginLeft: "0", 
-    backgroundColor: "rgba(240, 240, 240, 0.979)",
-}
+import { LayoutStyle, SiderStyle } from "pages/styles/Styles";
+import { useParams } from "react-router-dom";
+import { ShiftType } from "types/ShiftTypes";
+import { TaskType } from '../../types/TaskTypes';
+import { useEffect } from "react";
+import { shiftApi } from "api/shiftAPI";
 
 export function ShiftsPage(): JSX.Element {
+
+  const shiftId = Number(useParams())
+  const [shift, setShift] = useState<ShiftType>()
+  const [tasks, setTasks] = useState<TaskType[]>([])
+
+  useEffect(
+    () => {
+      shiftApi.
+    }
+  )
+
     return (
         <Layout
       style={LayoutStyle}
