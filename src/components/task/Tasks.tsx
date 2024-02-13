@@ -5,7 +5,11 @@ import { ProgressIcon } from "./ProgressIcon";
 import { TaskType } from "types/TaskTypes";
 import { useNavigate } from "react-router-dom";
 
-export function Tasks(tasks: TaskType[]): JSX.Element {
+interface ITasks {
+  tasks: TaskType[];
+}
+
+export function Tasks(props: ITasks): JSX.Element {
   const navigate = useNavigate();
 
   const navigateToTaskPage = (taskId?: number) => {
@@ -16,7 +20,7 @@ export function Tasks(tasks: TaskType[]): JSX.Element {
     <List
       className={styles.container}
       grid={{ gutter: 16, column: 6 }}
-      dataSource={tasks}
+      dataSource={props.tasks}
       renderItem={(item: TaskType) => (
         <List.Item>
           <Card className={styles.task}>

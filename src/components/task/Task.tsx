@@ -19,23 +19,27 @@ const statuses = [
   },
 ];
 
-export function Task(props: TaskType): JSX.Element {
+interface ITask {
+  task: TaskType;
+}
+
+export function Task(props: ITask): JSX.Element {
   return (
     <Flex>
-      <Title level={3}>{props.title}</Title>
+      <Title level={3}>{props.task.title}</Title>
       <Title level={4}>
-        <ProgressIcon status={props.status} /> {props.status}
+        <ProgressIcon status={props.task.status} /> {props.task.status}
       </Title>
-      {props.finishTime ? (
+      {props.task.finishTime ? (
         <div>
           <Divider>Finish Date</Divider>
-          <Title level={4}>{props.finishTime}</Title>
+          <Title level={4}>{props.task.finishTime}</Title>
         </div>
       ) : (
         <></>
       )}
       <Divider>Status</Divider>
-      <Select options={statuses} defaultValue={props.status} />
+      <Select options={statuses} defaultValue={props.task.status} />
     </Flex>
   );
 }

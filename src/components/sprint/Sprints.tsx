@@ -5,7 +5,11 @@ import { useNavigate } from "react-router-dom";
 
 const twoColors = { "0%": "#108ee9", "100%": "#87d068" };
 
-export function Sprints(sprints: SprintType[]): JSX.Element {
+interface ISprints {
+  sprints: SprintType[];
+}
+
+export function Sprints(props: ISprints): JSX.Element {
   const navigate = useNavigate();
 
   const navigateToSprintPage = (sprintId: number) => {
@@ -15,7 +19,7 @@ export function Sprints(sprints: SprintType[]): JSX.Element {
   return (
     <List
       className={styles.container}
-      dataSource={sprints}
+      dataSource={props.sprints}
       renderItem={(sprint) => (
         <List.Item key={sprint.title} className={styles.sprint}>
           <h3>{sprint.title}</h3>

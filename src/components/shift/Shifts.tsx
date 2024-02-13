@@ -3,12 +3,16 @@ import styles from "./Shifts.module.css";
 import { CloudTwoTone, HomeTwoTone } from "@ant-design/icons";
 import { ShiftType } from "types/ShiftTypes";
 
-export function Shifts(shifts: ShiftType[]): JSX.Element {
+interface IShifts {
+  shifts: ShiftType[];
+}
+
+export function Shifts(props: IShifts): JSX.Element {
   return (
     <List
       className={styles.container}
       grid={{ gutter: 16, column: 6 }}
-      dataSource={shifts}
+      dataSource={props.shifts}
       renderItem={(item) => (
         <List.Item>
           <Card className={styles.shift}>

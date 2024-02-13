@@ -3,11 +3,15 @@ import { ProjectTwoTone } from "@ant-design/icons";
 import styles from "./Projects.module.css";
 import { ProjectType } from "types/ProjectTypes";
 
-export function Projects(projects: ProjectType[]): JSX.Element {
+interface IProjects {
+  projects: ProjectType[];
+}
+
+export function Projects(props: IProjects): JSX.Element {
   return (
     <List
       className={styles.container}
-      dataSource={projects}
+      dataSource={props.projects}
       renderItem={(project) => (
         <List.Item key={project.title} className={styles.project}>
           <div className={styles.leftEnd}>
