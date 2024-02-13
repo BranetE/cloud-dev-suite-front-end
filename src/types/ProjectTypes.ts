@@ -1,11 +1,12 @@
 export type ProjectType = {
-    title?: string,
-    description?: string,
-    startDate?: string
-}
+  title?: string;
+  description?: string;
+  status: string;
+  startDate?: string;
+};
 
-export interface CreateProjectRequest{
-    title: string,
-    description: string,
-    responsibleEmployeeId: number
+export interface CreateProjectRequest {
+  title: string;
+  description: string;
+  responsibleEmployeeId: number;
 }

@@ -4,7 +4,7 @@ export interface CreateTaskRequest {
   sprintId: number;
 }
 
-export interface TaskType  {
+export interface TaskType {
   id?: number;
   title?: string;
   description?: string;

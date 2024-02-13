@@ -13,69 +13,83 @@ import { taskApi } from "api/taskAPI";
 import { TaskType } from "types/TaskTypes";
 
 const LayoutStyle = {
-    backgroundColor: "rgba(240, 240, 240, 0.979)",
-}
+  backgroundColor: "rgba(240, 240, 240, 0.979)",
+};
 
 const SiderStyle = {
-    paddingTop: "3%",
-    backgroundColor: "rgba(240, 240, 240, 0.979)",
-}
+  paddingTop: "3%",
+  backgroundColor: "rgba(240, 240, 240, 0.979)",
+};
 
 const HeaderStyle = {
-    padding: "0",
-    display: "flex",
-    justifyItems: "space-around",
-    backgroundColor: "rgba(240, 240, 240, 0.979)"
-}
+  padding: "0",
+  display: "flex",
+  justifyItems: "space-around",
+  backgroundColor: "rgba(240, 240, 240, 0.979)",
+};
 
 const ButtonStyle = {
-    margin: "10px" 
-}
+  margin: "10px",
+};
 
 export function EmployeePage(): JSX.Element {
-    
-    const employeeId = Number(useParams())
-    const [contentType, setContentType] = useState<string>("shift")
-    const [employee, setEmployee] = useState<EmployeeType>()
-    const [tasks, setTasks] = useState<TaskType[]>([])
+  const employeeId = Number(useParams());
+  const [contentType, setContentType] = useState<string>("shift");
+  const [employee, setEmployee] = useState<EmployeeType>();
+  const [tasks, setTasks] = useState<TaskType[]>([]);
 
-    useEffect(() => {
-      employeeApi.getEmployee(employeeId)
-        .then(res => setEmployee(res.data)
-        )
-      taskApi.getAllTasksByEmployee(employeeId)
-        .then(res => setTasks(res.data))
-    }, [employeeId])
-    
-    const RenderCorrectView = ({contentType}: {contentType: string}): JSX.Element => {
-      if(contentType === "projects") return <Projects />
-      else if(contentType === "tasks") return <Tasks {...tasks}/>
-      else return <Shifts/>
-  }
+  useEffect(() => {
+    employeeApi.getEmployee(employeeId).then((res) => setEmployee(res.data));
+    taskApi.getAllTasksByEmployee(employeeId).then((res) => setTasks(res.data));
+  }, [employeeId]);
 
-    return(
+  const RenderCorrectView = ({
+    contentType,
+  }: {
+    contentType: string;
+  }): JSX.Element => {
+    if (contentType === "projects") return <Projects />;
+    else if (contentType === "tasks") return <Tasks {...tasks} />;
+    else return <Shifts />;
+  };
+
+  return (
     <Layout style={LayoutStyle}>
-        <Sider width="15%" style={SiderStyle}>
-          <Employee {...employee}/>
-        </Sider>
+      <Sider width="15%" style={SiderStyle}>
+        <Employee {...employee} />
+      </Sider>
 
-        <Layout>
-          <Header style={HeaderStyle}>
-            <Button style={ButtonStyle} type="primary" ghost onClick={() => setContentType("shifts")}>
-                Shifts
-            </Button>
-            <Button style={ButtonStyle} type="primary" onClick={() => setContentType("projects")}>
-                Projects
-            </Button>
-            <Button style={ButtonStyle} type="primary" ghost onClick={() => setContentType("tasks")}>
-                Tasks
-            </Button>
-          </Header>
+      <Layout>
+        <Header style={HeaderStyle}>
+          <Button
+            style={ButtonStyle}
+            type="primary"
+            ghost
+            onClick={() => setContentType("shifts")}
+          >
+            Shifts
+          </Button>
+          <Button
+            style={ButtonStyle}
+            type="primary"
+            onClick={() => setContentType("projects")}
+          >
+            Projects
+          </Button>
+          <Button
+            style={ButtonStyle}
+            type="primary"
+            ghost
+            onClick={() => setContentType("tasks")}
+          >
+            Tasks
+          </Button>
+        </Header>
 
-          <Content>
-            <RenderCorrectView contentType={contentType}/>
-          </Content>
-        </Layout>
+        <Content>
+          <RenderCorrectView contentType={contentType} />
+        </Content>
       </Layout>
-    )
+    </Layout>
+  );
 }

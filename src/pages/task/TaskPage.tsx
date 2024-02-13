@@ -1,4 +1,4 @@
-import {Layout } from "antd";
+import { Layout } from "antd";
 import Sider from "antd/es/layout/Sider";
 import { taskApi } from "api/taskAPI";
 import { Task } from "components/task/Task";
@@ -8,20 +8,17 @@ import { useParams } from "react-router-dom";
 import { TaskType } from "types/TaskTypes";
 
 export function TaskPage(): JSX.Element {
-
-  const taskId = Number(useParams)
-  const [task, setTask] = useState<TaskType>()
+  const taskId = Number(useParams);
+  const [task, setTask] = useState<TaskType>();
 
   useEffect(() => {
-    taskApi.getTask(taskId)
-    .then(res => setTask(res.data))
-  }, [taskId])
-  
+    taskApi.getTask(taskId).then((res) => setTask(res.data));
+  }, [taskId]);
 
   return (
     <Layout style={LayoutStyle}>
       <Sider width="25%" style={SiderStyle}>
-        <Task {...task}/>
+        <Task {...task} />
       </Sider>
     </Layout>
   );

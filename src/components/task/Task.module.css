@@ -3,13 +3,13 @@
 }
 
 .container > * {
-    margin-left: 20px;
-    margin-right: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
-.headerPart{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+.headerPart {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }

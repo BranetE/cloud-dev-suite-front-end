@@ -12,34 +12,30 @@ import { SprintType } from "types/SprintTypes";
 import { TaskType } from "types/TaskTypes";
 
 export function SprintsPage(): JSX.Element {
-   
-  const sprintId = Number(useParams())
-  const [sprint, setSprint] = useState<SprintType>()
-  const [tasks, setTasks] = useState<TaskType[]>([])
+  const sprintId = Number(useParams());
+  const [sprint, setSprint] = useState<SprintType>({
+    id: 0,
+    title: "",
+    status: "",
+    startDate: "",
+  });
+  const [tasks, setTasks] = useState<TaskType[]>([]);
 
   useEffect(() => {
-    sprintApi.getSprint(sprintId)
-    .then(res => setSprint(res.data))
-    taskApi.getAllTasksBySprint(sprintId)
-    .then(res => setTasks(res.data))
-  }, [sprintId])
-  
-  
+    sprintApi.getSprint(sprintId).then((res) => setSprint(res.data));
+    taskApi.getAllTasksBySprint(sprintId).then((res) => setTasks(res.data));
+  }, [sprintId]);
+
   return (
-        <Layout
-      style={LayoutStyle}
-    >
-        <Sider 
-            width="15%" 
-            style={SiderStyle}
-        >
-          <Sprint {...sprint}/>
-        </Sider>
-        <Layout>
-          <Content>
-            <Tasks {...tasks}/>
-          </Content>
-        </Layout>
+    <Layout style={LayoutStyle}>
+      <Sider width="15%" style={SiderStyle}>
+        <Sprint sprint={sprint} />
+      </Sider>
+      <Layout>
+        <Content>
+          <Tasks {...tasks} />
+        </Content>
       </Layout>
-    )
+    </Layout>
+  );
 }

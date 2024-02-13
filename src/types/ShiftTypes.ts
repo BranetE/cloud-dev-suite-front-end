@@ -1,5 +1,5 @@
 export type ShiftType = {
-    shiftType: string,
-    startTime: string,
-    endTime: string,
-}
+  shiftType?: string;
+  startTime?: string;
+  endTime?: string;
+};

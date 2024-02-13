@@ -1,11 +1,11 @@
-import { Button, Form, Input} from "antd";
+import { Button, Form, Input } from "antd";
 import styles from "./LoginPage.module.css";
 import FormItem from "antd/es/form/FormItem";
 import logo from "assets/logo.png";
 import { authAPI } from "api/authAPI";
 
 const onFinish = (values: FieldType) => {
-  authAPI.login(values)
+  authAPI.login(values);
 };
 
 const onFinishFailed = (errorInfo: unknown) => {
@@ -49,15 +49,11 @@ export function LoginPage(): JSX.Element {
         <Input.Password />
       </Form.Item>
 
-      <Form.Item<FieldType>
-        wrapperCol={{ offset: 7, span: 16 }}
-        >
+      <Form.Item<FieldType> wrapperCol={{ offset: 7, span: 16 }}>
         <a>Got no account? Register</a>
       </Form.Item>
 
-      <Form.Item
-        style={{margin: 0}} 
-        wrapperCol={{ offset: 10, span: 16 }}>
+      <Form.Item style={{ margin: 0 }} wrapperCol={{ offset: 10, span: 16 }}>
         <Button type="primary" htmlType="submit">
           Submit
         </Button>

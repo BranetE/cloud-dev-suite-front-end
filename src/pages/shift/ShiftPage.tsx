@@ -5,41 +5,32 @@ import { Shift } from "components/shift/Shift";
 import { LayoutStyle, SiderStyle } from "pages/styles/Styles";
 import { useParams } from "react-router-dom";
 import { ShiftType } from "types/ShiftTypes";
-import { TaskType } from '../../types/TaskTypes';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { shiftApi } from "api/shiftAPI";
+import { Tasks } from "components/task/Tasks";
+import { TaskType } from "types/TaskTypes";
+import { taskApi } from "api/taskAPI";
 
 export function ShiftsPage(): JSX.Element {
+  const shiftId = Number(useParams());
+  const [shift, setShift] = useState<ShiftType>();
+  const [tasks, setTasks] = useState<TaskType[]>([]);
 
-  const shiftId = Number(useParams())
-  const [shift, setShift] = useState<ShiftType>()
-  const [tasks, setTasks] = useState<TaskType[]>([])
+  useEffect(() => {
+    shiftApi.getShift(shiftId).then((res) => setShift(res.data));
+    taskApi.getAllTasksByShift(shiftId).then((res) => setTasks(res.data));
+  }, [shiftId]);
 
-  useEffect(
-    () => {
-      shiftApi.
-    }
-  )
-
-    return (
-        <Layout
-      style={LayoutStyle}
-    >
-        <Sider 
-            width="15%" 
-            style={SiderStyle}
-        >
-          <Shift
-            shiftType="Remote"
-            startTime="10/12/2023"
-            endTime="11/12/2023"
-          />
-        </Sider>
-        <Layout>
-          <Content>
-            {/* <Tasks/> */}
-          </Content>
-        </Layout>
+  return (
+    <Layout style={LayoutStyle}>
+      <Sider width="15%" style={SiderStyle}>
+        <Shift {...shift} />
+      </Sider>
+      <Layout>
+        <Content>
+          <Tasks {...tasks} />
+        </Content>
       </Layout>
-    )
+    </Layout>
+  );
 }

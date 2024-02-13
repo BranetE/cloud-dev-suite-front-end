@@ -1,15 +1,15 @@
 .container {
-    margin-top: 40px;
-    margin-left: 10px;
-    margin-right: 10px;
-    color: black;
-    text-align: center;
+  margin-top: 40px;
+  margin-left: 10px;
+  margin-right: 10px;
+  color: black;
+  text-align: center;
 }
 
-.container>div>* {
+.container > div > * {
   margin-left: 0;
 }
 
-.teamLead>p {
+.teamLead > p {
   margin: 0;
 }
