@@ -7,6 +7,9 @@ import { CreateTask } from "pages/task/CreateTask";
 import { CreateShift } from "pages/shift/CreateShift";
 import { RegisterPage } from "pages/register/RegisterPage";
 import { TaskPage } from "pages/task/TaskPage";
+import { ShiftPage } from "pages/shift/ShiftPage";
+import { ProjectPage } from "pages/project/ProjectPage";
+import { SprintPage } from "pages/sprint/SprintPage";
 
 export default function App() {
   return (
@@ -14,8 +17,9 @@ export default function App() {
       <Routes>
         <Route path="/employee/:id" element={<EmployeePage />} />
         <Route path="/task/:id" element={<TaskPage />} />
-        {/* <Route path="/project" element={<ProjectPage/>}/> */}
-        {/* <Route path="/sprint" element={<SprintsPage/>}/> */}
+        <Route path="shift/:id" element={<ShiftPage />} />
+        <Route path="/project/:id" element={<ProjectPage />} />
+        <Route path="/sprint/:id" element={<SprintPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/create-project" element={<CreateProject />} />

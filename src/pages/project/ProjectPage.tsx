@@ -6,6 +6,7 @@ import { sprintApi } from "api/sprintApi";
 import { Project } from "components/project/Project";
 import { Sprints } from "components/sprint/Sprints";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { ProjectType } from "types/ProjectTypes";
 import { SprintType } from "types/SprintTypes";
 
@@ -18,7 +19,8 @@ const SiderStyle = {
   backgroundColor: "rgba(240, 240, 240, 0.979)",
 };
 
-export function ProjectPage({ projectId }: { projectId: number }) {
+export function ProjectPage() {
+  const projectId = Number(useParams);
   const [project, setProject] = useState<ProjectType>({
     id: 0,
     title: "",

@@ -11,9 +11,13 @@ import { Tasks } from "components/task/Tasks";
 import { TaskType } from "types/TaskTypes";
 import { taskApi } from "api/taskAPI";
 
-export function ShiftsPage(): JSX.Element {
+export function ShiftPage(): JSX.Element {
   const shiftId = Number(useParams());
-  const [shift, setShift] = useState<ShiftType>();
+  const [shift, setShift] = useState<ShiftType>({
+    id: 0,
+    shiftType: "",
+    startTime: "",
+  });
   const [tasks, setTasks] = useState<TaskType[]>([]);
 
   useEffect(() => {
@@ -24,11 +28,11 @@ export function ShiftsPage(): JSX.Element {
   return (
     <Layout style={LayoutStyle}>
       <Sider width="15%" style={SiderStyle}>
-        <Shift {...shift} />
+        <Shift shift={shift} />
       </Sider>
       <Layout>
         <Content>
-          <Tasks {...tasks} />
+          <Tasks tasks={tasks} />
         </Content>
       </Layout>
     </Layout>
