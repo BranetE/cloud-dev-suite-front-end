@@ -44,92 +44,94 @@ const experiences = [
 ];
 export function RegisterPage(): JSX.Element {
   return (
-    <Form
-      name="basic"
-      className={styles.registerForm}
-      labelCol={{ span: 10 }}
-      wrapperCol={{ span: 16 }}
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
-      autoComplete="off"
-    >
-      <FormItem>
-        <img className={styles.logo} src={logo} alt="CLOUD DEV SUITE" />
-      </FormItem>
-
-      <Form.Item<EmployeeRegisterType>
-        label="Email"
-        name="email"
-        rules={[{ required: true, message: "Please input your email!" }]}
+    <div className={styles.container}>
+      <Form
+        name="basic"
+        className={styles.registerForm}
+        labelCol={{ span: 10 }}
+        wrapperCol={{ span: 16 }}
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+        autoComplete="off"
       >
-        <Input />
-      </Form.Item>
+        <FormItem>
+          <img className={styles.logo} src={logo} alt="CLOUD DEV SUITE" />
+        </FormItem>
 
-      <Form.Item<EmployeeRegisterType>
-        label="First Name"
-        name="firstName"
-        rules={[{ required: true, message: "Please input your first name!" }]}
-      >
-        <Input />
-      </Form.Item>
+        <Form.Item<EmployeeRegisterType>
+          label="Email"
+          name="email"
+          rules={[{ required: true, message: "Please input your email!" }]}
+        >
+          <Input />
+        </Form.Item>
 
-      <Form.Item<EmployeeRegisterType>
-        label="Last Name"
-        name="lastName"
-        rules={[{ required: true, message: "Please input your last name!" }]}
-      >
-        <Input />
-      </Form.Item>
+        <Form.Item<EmployeeRegisterType>
+          label="First Name"
+          name="firstName"
+          rules={[{ required: true, message: "Please input your first name!" }]}
+        >
+          <Input />
+        </Form.Item>
 
-      <Form.Item<EmployeeRegisterType>
-        label="Position"
-        name="position"
-        rules={[{ required: true, message: "Please input your position!" }]}
-      >
-        <Select defaultValue={"MANAGER"} options={positions} />
-      </Form.Item>
+        <Form.Item<EmployeeRegisterType>
+          label="Last Name"
+          name="lastName"
+          rules={[{ required: true, message: "Please input your last name!" }]}
+        >
+          <Input />
+        </Form.Item>
 
-      <Form.Item<EmployeeRegisterType>
-        label="experience"
-        name="experience"
-        rules={[{ required: true, message: "Please input your position!" }]}
-      >
-        <Select defaultValue={"JUNIOR"} options={experiences} />
-      </Form.Item>
+        <Form.Item<EmployeeRegisterType>
+          label="Position"
+          name="position"
+          rules={[{ required: true, message: "Please input your position!" }]}
+        >
+          <Select defaultValue={"MANAGER"} options={positions} />
+        </Form.Item>
 
-      <Form.Item<EmployeeRegisterType>
-        label="Password"
-        name="password"
-        rules={[{ required: true, message: "Please input your password!" }]}
-      >
-        <Input.Password />
-      </Form.Item>
+        <Form.Item<EmployeeRegisterType>
+          label="experience"
+          name="experience"
+          rules={[{ required: true, message: "Please input your position!" }]}
+        >
+          <Select defaultValue={"JUNIOR"} options={experiences} />
+        </Form.Item>
 
-      <Form.Item<EmployeeRegisterType>
-        label="Confirm password"
-        name="confirmPassword"
-        rules={[
-          { required: true, message: "Please confirm your password!" },
-          ({ getFieldValue }) => ({
-            validator(_, value) {
-              if (!value || getFieldValue("password") === value) {
-                return Promise.resolve();
-              }
-              return Promise.reject(
-                new Error("The new password that you entered do not match!")
-              );
-            },
-          }),
-        ]}
-      >
-        <Input.Password />
-      </Form.Item>
+        <Form.Item<EmployeeRegisterType>
+          label="Password"
+          name="password"
+          rules={[{ required: true, message: "Please input your password!" }]}
+        >
+          <Input.Password />
+        </Form.Item>
 
-      <Form.Item style={{ margin: 0 }} wrapperCol={{ offset: 10, span: 16 }}>
-        <Button type="primary" htmlType="submit">
-          Register
-        </Button>
-      </Form.Item>
-    </Form>
+        <Form.Item<EmployeeRegisterType>
+          label="Confirm password"
+          name="confirmPassword"
+          rules={[
+            { required: true, message: "Please confirm your password!" },
+            ({ getFieldValue }) => ({
+              validator(_, value) {
+                if (!value || getFieldValue("password") === value) {
+                  return Promise.resolve();
+                }
+                return Promise.reject(
+                  new Error("The new password that you entered do not match!")
+                );
+              },
+            }),
+          ]}
+        >
+          <Input.Password />
+        </Form.Item>
+
+        <Form.Item style={{ margin: 0 }} wrapperCol={{ offset: 5, span: 16 }}>
+          <Button type="primary" htmlType="submit">
+            Register
+          </Button>
+        </Form.Item>
+      </Form>
+    </div>
   );
 }

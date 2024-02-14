@@ -1,3 +1,14 @@
+.container {
+  display: flex;
+  place-items: center;
+  justify-content: center;
+  flex-basis: content;
+  min-width: 320px;
+  min-height: 100vh;
+  color: black;
+  text-align: center;
+}
+
 .registerForm {
   width: 100%;
   padding: 70px 50px;

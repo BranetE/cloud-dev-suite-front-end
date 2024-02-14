@@ -11,6 +11,10 @@ import { EmployeeType } from "types/EmployeeTypes";
 import { useParams } from "react-router-dom";
 import { taskApi } from "api/taskAPI";
 import { TaskType } from "types/TaskTypes";
+import { ShiftType } from "types/ShiftTypes";
+import { ProjectType } from "types/ProjectTypes";
+import { shiftApi } from "api/shiftAPI";
+import { projectApi } from "api/projectAPI";
 
 const LayoutStyle = {
   backgroundColor: "rgba(240, 240, 240, 0.979)",
@@ -35,12 +39,26 @@ const ButtonStyle = {
 export function EmployeePage(): JSX.Element {
   const employeeId = Number(useParams());
   const [contentType, setContentType] = useState<string>("shift");
-  const [employee, setEmployee] = useState<EmployeeType>();
+  const [employee, setEmployee] = useState<EmployeeType>({
+    email: "",
+    firstName: "",
+    lastName: "",
+    position: "",
+    experience: "",
+  });
   const [tasks, setTasks] = useState<TaskType[]>([]);
+  const [shifts, setShifts] = useState<ShiftType[]>([]);
+  const [projects, setProjects] = useState<ProjectType[]>([]);
 
   useEffect(() => {
     employeeApi.getEmployee(employeeId).then((res) => setEmployee(res.data));
     taskApi.getAllTasksByEmployee(employeeId).then((res) => setTasks(res.data));
+    shiftApi
+      .getAllShiftsByEmployee(employeeId)
+      .then((res) => setShifts(res.data));
+    projectApi
+      .getAllProjectsByEmployee(employeeId)
+      .then((res) => setProjects(res.data));
   }, [employeeId]);
 
   const RenderCorrectView = ({
@@ -48,15 +66,15 @@ export function EmployeePage(): JSX.Element {
   }: {
     contentType: string;
   }): JSX.Element => {
-    if (contentType === "projects") return <Projects />;
-    else if (contentType === "tasks") return <Tasks {...tasks} />;
-    else return <Shifts />;
+    if (contentType === "projects") return <Projects projects={projects} />;
+    else if (contentType === "tasks") return <Tasks tasks={tasks} />;
+    else return <Shifts shifts={shifts} />;
   };
 
   return (
     <Layout style={LayoutStyle}>
       <Sider width="15%" style={SiderStyle}>
-        <Employee {...employee} />
+        <Employee employee={employee} />
       </Sider>
 
       <Layout>

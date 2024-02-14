@@ -33,7 +33,7 @@ export function SprintsPage(): JSX.Element {
       </Sider>
       <Layout>
         <Content>
-          <Tasks {...tasks} />
+          <Tasks tasks={tasks} />
         </Content>
       </Layout>
     </Layout>

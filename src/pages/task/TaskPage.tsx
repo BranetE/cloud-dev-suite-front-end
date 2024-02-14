@@ -9,7 +9,12 @@ import { TaskType } from "types/TaskTypes";
 
 export function TaskPage(): JSX.Element {
   const taskId = Number(useParams);
-  const [task, setTask] = useState<TaskType>();
+  const [task, setTask] = useState<TaskType>({
+    id: 0,
+    title: "",
+    description: "",
+    status: "",
+  });
 
   useEffect(() => {
     taskApi.getTask(taskId).then((res) => setTask(res.data));
@@ -18,7 +23,7 @@ export function TaskPage(): JSX.Element {
   return (
     <Layout style={LayoutStyle}>
       <Sider width="25%" style={SiderStyle}>
-        <Task {...task} />
+        <Task task={task} />
       </Sider>
     </Layout>
   );
