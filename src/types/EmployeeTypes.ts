@@ -5,3 +5,9 @@ export type EmployeeType = {
   position: string;
   experience: string;
 };
+
+export type EmployeeCompactType = {
+  id: number;
+  firstName: string;
+  lastName: string;
+};

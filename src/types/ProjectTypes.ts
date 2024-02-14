@@ -9,5 +9,6 @@ export type ProjectType = {
 export interface CreateProjectRequest {
   title: string;
   description: string;
-  responsibleEmployeeId: number;
+  status: string;
+  teamLeadId: number;
 }
