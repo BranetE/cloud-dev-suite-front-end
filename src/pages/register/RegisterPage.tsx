@@ -3,21 +3,14 @@ import FormItem from "antd/es/form/FormItem";
 import logo from "assets/logo.png";
 import styles from "./RegisterPage.module.css";
 import { authAPI } from "api/authAPI";
+import { EmployeeRegisterType } from "types/EmployeeTypes";
 
-const onFinish = (values: FieldType) => {
-  authAPI.register(values);
+const onFinish = (request: EmployeeRegisterType) => {
+  authAPI.register(request);
 };
 
-const onFinishFailed = (values: any) => {};
-
-type FieldType = {
-  email?: string;
-  firstName?: string;
-  lastName?: string;
-  position?: string;
-  experience?: string;
-  password?: string;
-  // confirmPassword?: string
+const onFinishFailed = () => {
+  console.error("Didn`t manage to register employee");
 };
 
 const positions = [
@@ -64,7 +57,7 @@ export function RegisterPage(): JSX.Element {
         <img className={styles.logo} src={logo} alt="CLOUD DEV SUITE" />
       </FormItem>
 
-      <Form.Item<FieldType>
+      <Form.Item<EmployeeRegisterType>
         label="Email"
         name="email"
         rules={[{ required: true, message: "Please input your email!" }]}
@@ -72,7 +65,7 @@ export function RegisterPage(): JSX.Element {
         <Input />
       </Form.Item>
 
-      <Form.Item<FieldType>
+      <Form.Item<EmployeeRegisterType>
         label="First Name"
         name="firstName"
         rules={[{ required: true, message: "Please input your first name!" }]}
@@ -80,7 +73,7 @@ export function RegisterPage(): JSX.Element {
         <Input />
       </Form.Item>
 
-      <Form.Item<FieldType>
+      <Form.Item<EmployeeRegisterType>
         label="Last Name"
         name="lastName"
         rules={[{ required: true, message: "Please input your last name!" }]}
@@ -88,7 +81,7 @@ export function RegisterPage(): JSX.Element {
         <Input />
       </Form.Item>
 
-      <Form.Item<FieldType>
+      <Form.Item<EmployeeRegisterType>
         label="Position"
         name="position"
         rules={[{ required: true, message: "Please input your position!" }]}
@@ -96,7 +89,7 @@ export function RegisterPage(): JSX.Element {
         <Select defaultValue={"MANAGER"} options={positions} />
       </Form.Item>
 
-      <Form.Item<FieldType>
+      <Form.Item<EmployeeRegisterType>
         label="experience"
         name="experience"
         rules={[{ required: true, message: "Please input your position!" }]}
@@ -104,7 +97,7 @@ export function RegisterPage(): JSX.Element {
         <Select defaultValue={"JUNIOR"} options={experiences} />
       </Form.Item>
 
-      <Form.Item<FieldType>
+      <Form.Item<EmployeeRegisterType>
         label="Password"
         name="password"
         rules={[{ required: true, message: "Please input your password!" }]}
@@ -112,22 +105,25 @@ export function RegisterPage(): JSX.Element {
         <Input.Password />
       </Form.Item>
 
-      {/* <Form.Item<FieldType>
-                label="Confirm password"
-                name="confirmPassword"
-                rules={[{ required: true, message: "Please confirm your password!" }, 
-                ({ getFieldValue }) => ({
-                    validator(_, value) {
-                      if (!value || getFieldValue('password') === value) {
-                        return Promise.resolve();
-                      }
-                      return Promise.reject(new Error('The new password that you entered do not match!'));
-                    },
-                  }),
-            ]}
-            >
-                <Input.Password />
-            </Form.Item> */}
+      <Form.Item<EmployeeRegisterType>
+        label="Confirm password"
+        name="confirmPassword"
+        rules={[
+          { required: true, message: "Please confirm your password!" },
+          ({ getFieldValue }) => ({
+            validator(_, value) {
+              if (!value || getFieldValue("password") === value) {
+                return Promise.resolve();
+              }
+              return Promise.reject(
+                new Error("The new password that you entered do not match!")
+              );
+            },
+          }),
+        ]}
+      >
+        <Input.Password />
+      </Form.Item>
 
       <Form.Item style={{ margin: 0 }} wrapperCol={{ offset: 10, span: 16 }}>
         <Button type="primary" htmlType="submit">
