@@ -1,32 +1,35 @@
-import { ShiftType } from "types/ShiftTypes";
-import { instance } from "./axiosConfig";
+import { ShiftType } from 'types/ShiftTypes'
+import { instance } from './axiosConfig'
 
 export const shiftApi = {
-  startShift() {
-    return instance.post(`/shift/start`);
+  startShift(shiftType: string) {
+    const params = new URLSearchParams()
+    params.append('shiftType', `${shiftType}`)
+
+    return instance.post(`/shift/start`, { shiftType: shiftType })
   },
   getCurrent() {
-    return instance.get<ShiftType>(`/shift/getCurrent`);
+    return instance.get<ShiftType>(`/shift/getCurrent`)
   },
-  getShift(shiftId: number) {
-    return instance.get<ShiftType>(`/shift/${shiftId}`);
+  getShift(shiftId: string) {
+    return instance.get<ShiftType>(`/shift/${shiftId}`)
   },
-  getAllShiftsByEmployee(employeeId: number) {
-    return instance.get<ShiftType[]>(`/shifts/getAllByEmployee/${employeeId}`);
+  getAllShiftsByEmployee(employeeId: string) {
+    return instance.get<ShiftType[]>(`/shift/getAllByEmployee/${employeeId}`)
   },
-  addTask(taskId: number) {
-    const params = new URLSearchParams();
-    params.append("taskId", `${taskId}`);
+  addTask(taskId: string) {
+    const params = new URLSearchParams()
+    params.append('taskId', `${taskId}`)
 
-    return instance.patch(`/shift/addTask`, { params });
+    return instance.patch(`/shift/addTask`, { params })
   },
-  removeTask(shiftId: number, taskId: number) {
-    const params = new URLSearchParams();
-    params.append("taskId", `${taskId}`);
+  removeTask(shiftId: string, taskId: string) {
+    const params = new URLSearchParams()
+    params.append('taskId', `${taskId}`)
 
-    return instance.patch(`/shift/${shiftId}/addTask`, { params });
+    return instance.patch(`/shift/${shiftId}/addTask`, { params })
   },
-  finishShift(employeeId: number) {
-    return instance.patch(`/shift/end/${employeeId}`);
+  finishShift(employeeId: string) {
+    return instance.patch(`/shift/end/${employeeId}`)
   },
-};
+}

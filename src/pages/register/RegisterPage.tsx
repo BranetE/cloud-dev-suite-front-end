@@ -1,48 +1,51 @@
-import { Button, Form, Input, Select } from "antd";
-import FormItem from "antd/es/form/FormItem";
-import logo from "assets/logo.png";
-import styles from "./RegisterPage.module.css";
-import { authAPI } from "api/authAPI";
-import { EmployeeRegisterType } from "types/EmployeeTypes";
+import { Button, Form, Input, Select } from 'antd'
+import FormItem from 'antd/es/form/FormItem'
+import logo from 'assets/logo.png'
+import styles from './RegisterPage.module.css'
+import { authAPI } from 'api/authAPI'
+import { EmployeeRegisterType } from 'types/EmployeeTypes'
+import { useNavigate } from 'react-router-dom'
 
 const onFinish = (request: EmployeeRegisterType) => {
-  authAPI.register(request);
-};
+  authAPI.register(request)
+}
 
 const onFinishFailed = () => {
-  console.error("Didn`t manage to register employee");
-};
+  console.error('Didn`t manage to register employee')
+}
 
 const positions = [
   {
-    value: "MANAGER",
-    label: "Manager",
+    value: 'MANAGER',
+    label: 'Manager',
   },
   {
-    value: "DEVELOPER",
-    label: "Developer",
+    value: 'DEVELOPER',
+    label: 'Developer',
   },
   {
-    value: "DESIGNER",
-    label: "Designer",
+    value: 'DESIGNER',
+    label: 'Designer',
   },
-];
+]
 
 const experiences = [
   {
-    value: "JUNIOR",
-    label: "Junior",
+    value: 'JUNIOR',
+    label: 'Junior',
   },
   {
-    value: "MIDDLE",
-    label: "Middle",
+    value: 'MIDDLE',
+    label: 'Middle',
   },
   {
-    value: "SENIOR",
-    label: "Senior",
+    value: 'SENIOR',
+    label: 'Senior',
   },
-];
+]
 export function RegisterPage(): JSX.Element {
+  const navigate = useNavigate()
+
   return (
     <div className={styles.container}>
       <Form
@@ -61,7 +64,7 @@ export function RegisterPage(): JSX.Element {
         <Form.Item<EmployeeRegisterType>
           label="Email"
           name="email"
-          rules={[{ required: true, message: "Please input your email!" }]}
+          rules={[{ required: true, message: 'Please input your email!' }]}
         >
           <Input />
         </Form.Item>
@@ -69,7 +72,7 @@ export function RegisterPage(): JSX.Element {
         <Form.Item<EmployeeRegisterType>
           label="First Name"
           name="firstName"
-          rules={[{ required: true, message: "Please input your first name!" }]}
+          rules={[{ required: true, message: 'Please input your first name!' }]}
         >
           <Input />
         </Form.Item>
@@ -77,7 +80,7 @@ export function RegisterPage(): JSX.Element {
         <Form.Item<EmployeeRegisterType>
           label="Last Name"
           name="lastName"
-          rules={[{ required: true, message: "Please input your last name!" }]}
+          rules={[{ required: true, message: 'Please input your last name!' }]}
         >
           <Input />
         </Form.Item>
@@ -85,23 +88,23 @@ export function RegisterPage(): JSX.Element {
         <Form.Item<EmployeeRegisterType>
           label="Position"
           name="position"
-          rules={[{ required: true, message: "Please input your position!" }]}
+          rules={[{ required: true, message: 'Please input your position!' }]}
         >
-          <Select defaultValue={"MANAGER"} options={positions} />
+          <Select defaultValue={'MANAGER'} options={positions} />
         </Form.Item>
 
         <Form.Item<EmployeeRegisterType>
           label="experience"
           name="experience"
-          rules={[{ required: true, message: "Please input your position!" }]}
+          rules={[{ required: true, message: 'Please input your position!' }]}
         >
-          <Select defaultValue={"JUNIOR"} options={experiences} />
+          <Select defaultValue={'JUNIOR'} options={experiences} />
         </Form.Item>
 
         <Form.Item<EmployeeRegisterType>
           label="Password"
           name="password"
-          rules={[{ required: true, message: "Please input your password!" }]}
+          rules={[{ required: true, message: 'Please input your password!' }]}
         >
           <Input.Password />
         </Form.Item>
@@ -110,20 +113,24 @@ export function RegisterPage(): JSX.Element {
           label="Confirm password"
           name="confirmPassword"
           rules={[
-            { required: true, message: "Please confirm your password!" },
+            { required: true, message: 'Please confirm your password!' },
             ({ getFieldValue }) => ({
               validator(_, value) {
-                if (!value || getFieldValue("password") === value) {
-                  return Promise.resolve();
+                if (!value || getFieldValue('password') === value) {
+                  return Promise.resolve()
                 }
                 return Promise.reject(
-                  new Error("The new password that you entered do not match!")
-                );
+                  new Error('The new password that you entered do not match!')
+                )
               },
             }),
           ]}
         >
           <Input.Password />
+        </Form.Item>
+
+        <Form.Item<EmployeeRegisterType> wrapperCol={{ offset: 6, span: 16 }}>
+          <a onClick={() => navigate(`/login`)}>Already Have Account? Log In</a>
         </Form.Item>
 
         <Form.Item style={{ margin: 0 }} wrapperCol={{ offset: 5, span: 16 }}>
@@ -133,5 +140,5 @@ export function RegisterPage(): JSX.Element {
         </Form.Item>
       </Form>
     </div>
-  );
+  )
 }

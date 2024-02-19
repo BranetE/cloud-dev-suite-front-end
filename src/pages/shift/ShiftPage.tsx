@@ -1,29 +1,29 @@
-import { Layout } from "antd";
-import Sider from "antd/es/layout/Sider";
-import { Content } from "antd/es/layout/layout";
-import { Shift } from "components/shift/Shift";
-import { LayoutStyle, SiderStyle } from "pages/styles/Styles";
-import { useParams } from "react-router-dom";
-import { ShiftType } from "types/ShiftTypes";
-import { useEffect, useState } from "react";
-import { shiftApi } from "api/shiftAPI";
-import { Tasks } from "components/task/Tasks";
-import { TaskType } from "types/TaskTypes";
-import { taskApi } from "api/taskAPI";
+import { Layout } from 'antd'
+import Sider from 'antd/es/layout/Sider'
+import { Content } from 'antd/es/layout/layout'
+import { Shift } from 'components/shift/Shift'
+import { LayoutStyle, SiderStyle } from 'pages/styles/Styles'
+import { useParams } from 'react-router-dom'
+import { ShiftType } from 'types/ShiftTypes'
+import { useEffect, useState } from 'react'
+import { shiftApi } from 'api/shiftAPI'
+import { Tasks } from 'components/task/Tasks'
+import { TaskType } from 'types/TaskTypes'
+import { taskApi } from 'api/taskAPI'
 
 export function ShiftPage(): JSX.Element {
-  const shiftId = Number(useParams());
+  const { shiftId } = useParams() as { shiftId: string }
   const [shift, setShift] = useState<ShiftType>({
     id: 0,
-    shiftType: "",
-    startTime: "",
-  });
-  const [tasks, setTasks] = useState<TaskType[]>([]);
+    shiftType: '',
+    startTime: '',
+  })
+  const [tasks, setTasks] = useState<TaskType[]>([])
 
   useEffect(() => {
-    shiftApi.getShift(shiftId).then((res) => setShift(res.data));
-    taskApi.getAllTasksByShift(shiftId).then((res) => setTasks(res.data));
-  }, [shiftId]);
+    shiftApi.getShift(shiftId).then((res) => setShift(res.data))
+    taskApi.getAllTasksByShift(shiftId).then((res) => setTasks(res.data))
+  }, [shiftId])
 
   return (
     <Layout style={LayoutStyle}>
@@ -36,5 +36,5 @@ export function ShiftPage(): JSX.Element {
         </Content>
       </Layout>
     </Layout>
-  );
+  )
 }

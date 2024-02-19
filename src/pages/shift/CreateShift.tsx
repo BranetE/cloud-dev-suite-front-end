@@ -1,23 +1,26 @@
-import { Form, Button, Select } from "antd";
-import styles from "./CreateShift.module.css";
+import { Form, Button, Select } from 'antd'
+import styles from './CreateShift.module.css'
+import { shiftApi } from 'api/shiftAPI'
 
 type FieldType = {
-  shiftType: string;
-};
+  shiftType: string
+}
 
 const types = [
   {
-    value: "OFFICE",
-    label: "Office",
+    value: 'OFFICE',
+    label: 'Office',
   },
   {
-    value: "REMOTE",
-    label: "Remote",
+    value: 'REMOTE',
+    label: 'Remote',
   },
-];
+]
 
-const onFinish = () => {};
-const onFinishFailed = () => {};
+const onFinish = (value: FieldType) => {
+  shiftApi.startShift(value.shiftType)
+}
+const onFinishFailed = () => {}
 
 export function CreateShift(): JSX.Element {
   return (
@@ -36,9 +39,9 @@ export function CreateShift(): JSX.Element {
         <Form.Item<FieldType>
           label="Shift Type"
           name="shiftType"
-          rules={[{ required: true, message: "Please input type!" }]}
+          rules={[{ required: true, message: 'Please input type!' }]}
         >
-          <Select defaultValue={"OFFICE"} options={types} />
+          <Select defaultValue={'OFFICE'} options={types} />
         </Form.Item>
 
         <Form.Item style={{ margin: 0 }} wrapperCol={{ offset: 4, span: 16 }}>
@@ -48,5 +51,5 @@ export function CreateShift(): JSX.Element {
         </Form.Item>
       </Form>
     </div>
-  );
+  )
 }

@@ -1,22 +1,20 @@
-import { CreateSprintRequest, SprintType } from "types/SprintTypes";
-import { instance } from "./axiosConfig";
+import { CreateSprintRequest, SprintType } from 'types/SprintTypes'
+import { instance } from './axiosConfig'
 
 export const sprintApi = {
-  getSprint(sprintId: number) {
-    return instance.get<SprintType>(`/sprint/${sprintId}`);
+  getSprint(sprintId: string) {
+    return instance.get<SprintType>(`/sprint/${sprintId}`)
   },
   startSprint(request: CreateSprintRequest) {
-    return instance.post(`/sprint/start`, request);
+    return instance.post(`/sprint/start`, request)
   },
-  getCurrentSprintForProject(projectId: number) {
-    return instance.get<SprintType>(
-      `/sprint/getCurrentForProject/${projectId}`
-    );
+  getCurrentSprintForProject(projectId: string) {
+    return instance.get<SprintType>(`/sprint/getCurrentForProject/${projectId}`)
   },
-  getAllSprintsForProject(projectId: number) {
-    return instance.get<SprintType[]>(`/sprint/project/${projectId}`);
+  getAllSprintsForProject(projectId: string) {
+    return instance.get<SprintType[]>(`/sprint/project/${projectId}`)
   },
-  finishSprint(sprintId: number) {
-    return instance.put(`/sprint/finish/${sprintId}`);
+  finishSprint(sprintId: string) {
+    return instance.put(`/sprint/finish/${sprintId}`)
   },
-};
+}

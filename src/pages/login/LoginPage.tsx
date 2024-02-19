@@ -1,23 +1,30 @@
-import { Button, Form, Input } from "antd";
-import styles from "./LoginPage.module.css";
-import FormItem from "antd/es/form/FormItem";
-import logo from "assets/logo.png";
-import { authAPI } from "api/authAPI";
-
-const onFinish = (values: FieldType) => {
-  authAPI.login(values);
-};
-
-const onFinishFailed = (errorInfo: unknown) => {
-  console.log("Failed:", errorInfo);
-};
+import { Button, Form, Input } from 'antd'
+import styles from './LoginPage.module.css'
+import FormItem from 'antd/es/form/FormItem'
+import logo from 'assets/logo.png'
+import { authAPI } from 'api/authAPI'
+import { useAuth, useGetLoggedIn } from 'provider/AuthProvider'
+import { useNavigate } from 'react-router-dom'
 
 type FieldType = {
-  email: string;
-  password: string;
-};
+  email: string
+  password: string
+}
 
 export function LoginPage(): JSX.Element {
+  const { setToken } = useAuth()
+  const { id } = useGetLoggedIn()
+  const navigate = useNavigate()
+
+  const onFinish = (values: FieldType) => {
+    authAPI.login(values).then((res) => setToken(res.data.accessToken))
+    navigate(`/employee/${id}`)
+  }
+
+  const onFinishFailed = (errorInfo: unknown) => {
+    console.log('Failed:', errorInfo)
+  }
+
   return (
     <div className={styles.container}>
       <Form
@@ -37,7 +44,7 @@ export function LoginPage(): JSX.Element {
         <Form.Item<FieldType>
           label="Email"
           name="email"
-          rules={[{ required: true, message: "Please input your email!" }]}
+          rules={[{ required: true, message: 'Please input your email!' }]}
         >
           <Input />
         </Form.Item>
@@ -45,13 +52,13 @@ export function LoginPage(): JSX.Element {
         <Form.Item<FieldType>
           label="Password"
           name="password"
-          rules={[{ required: true, message: "Please input your password!" }]}
+          rules={[{ required: true, message: 'Please input your password!' }]}
         >
           <Input.Password />
         </Form.Item>
 
         <Form.Item<FieldType> wrapperCol={{ offset: 5, span: 16 }}>
-          <a>Got no account? Register</a>
+          <a onClick={() => navigate(`/register`)}>Got no account? Register</a>
         </Form.Item>
 
         <Form.Item style={{ margin: 0 }} wrapperCol={{ offset: 4, span: 16 }}>
@@ -61,5 +68,5 @@ export function LoginPage(): JSX.Element {
         </Form.Item>
       </Form>
     </div>
-  );
+  )
 }

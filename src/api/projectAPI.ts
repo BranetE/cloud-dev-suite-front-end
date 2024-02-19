@@ -1,26 +1,26 @@
-import { CreateProjectRequest, ProjectType } from "types/ProjectTypes";
-import { instance } from "./axiosConfig";
+import { CreateProjectRequest, ProjectType } from 'types/ProjectTypes'
+import { instance } from './axiosConfig'
 
 export const projectApi = {
   createProject(request: CreateProjectRequest) {
-    return instance.post(`/project`, request);
+    return instance.post(`/project`, request)
   },
-  getAllProjectsByEmployee(employeeId: number) {
-    return instance.get<ProjectType[]>(`/project/getByEmployee/${employeeId}`);
+  getAllProjectsByEmployee(employeeId: string) {
+    return instance.get<ProjectType[]>(`/project/getByEmployee/${employeeId}`)
   },
-  getProject(projectId: number) {
-    return instance.get<ProjectType>(`/project/${projectId}`);
+  getProject(projectId: string) {
+    return instance.get<ProjectType>(`/project/${projectId}`)
   },
-  addEmployee(projectId: number, employeeId: number) {
-    return instance.patch(`/project/${projectId}/addEmployee/${employeeId}`);
+  addEmployee(projectId: string, employeeId: string) {
+    return instance.patch(`/project/${projectId}/addEmployee/${employeeId}`)
   },
-  removeEmployee(projectId: number, employeeId: number) {
-    return instance.patch(`/project/${projectId}/removeEmployee/${employeeId}`);
+  removeEmployee(projectId: string, employeeId: string) {
+    return instance.patch(`/project/${projectId}/removeEmployee/${employeeId}`)
   },
-  changeStatus(projectId: number) {
-    return instance.patch(`/project/changeStatus/${projectId}`);
+  changeStatus(projectId: string) {
+    return instance.patch(`/project/changeStatus/${projectId}`)
   },
-  changeResponsibleEmployee(projectId: number) {
-    return instance.patch(`/project/changeResponsibleEmployee/${projectId}`);
+  changeResponsibleEmployee(projectId: string) {
+    return instance.patch(`/project/changeResponsibleEmployee/${projectId}`)
   },
-};
+}

@@ -1,26 +1,26 @@
-import { TaskType, CreateTaskRequest } from "types/TaskTypes";
-import { instance } from "./axiosConfig";
+import { TaskType, CreateTaskRequest } from 'types/TaskTypes'
+import { instance } from './axiosConfig'
 
 export const taskApi = {
-  getAllTasksBySprint(sprintId: number) {
-    return instance.get<TaskType[]>(`/task/getBySprint/${sprintId}`);
+  getAllTasksBySprint(sprintId: string) {
+    return instance.get<TaskType[]>(`/task/getBySprint/${sprintId}`)
   },
   createTask(request: CreateTaskRequest) {
-    return instance.post(`/task/create`, request);
+    return instance.post(`/task/create`, request)
   },
-  getAllTasksByEmployee(employeeId: number) {
-    return instance.get<TaskType[]>(`/task/getAllByEmployeeId/${employeeId}`);
+  getAllTasksByEmployee(employeeId: string) {
+    return instance.get<TaskType[]>(`/task/getAllByEmployeeId/${employeeId}`)
   },
-  getAllTasksByShift(shiftId: number) {
-    return instance.get<TaskType[]>(`tasks/getByShift/${shiftId}`);
+  getAllTasksByShift(shiftId: string) {
+    return instance.get<TaskType[]>(`tasks/getByShift/${shiftId}`)
   },
-  getTask(taskId: number) {
-    return instance.get<TaskType>(`/task/${taskId}`);
+  getTask(taskId: string) {
+    return instance.get<TaskType>(`/task/${taskId}`)
   },
-  changeStatus(taskId: number) {
-    return instance.patch(`/task/${taskId}`);
+  changeStatus(taskId: string) {
+    return instance.patch(`/task/${taskId}`)
   },
-  finishTask(taskId: number) {
-    return instance.put(`task/${taskId}`);
+  finishTask(taskId: string) {
+    return instance.put(`task/${taskId}`)
   },
-};
+}
