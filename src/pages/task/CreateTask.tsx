@@ -1,16 +1,18 @@
-import { Form, Input, Button } from "antd";
-import TextArea from "antd/es/input/TextArea";
-import styles from "./CreateTask.module.css";
-
-type FieldType = {
-  title: string;
-  description: string;
-};
-
-const onFinish = () => {};
-const onFinishFailed = () => {};
+import { Form, Input, Button } from 'antd'
+import TextArea from 'antd/es/input/TextArea'
+import styles from './CreateTask.module.css'
+import { taskApi } from 'api/taskAPI'
+import { CreateTaskRequest } from 'types/TaskTypes'
+import { useSearchParams } from 'react-router-dom'
 
 export function CreateTask(): JSX.Element {
+  const [searchParams] = useSearchParams()
+  const onFinish = (value: CreateTaskRequest) => {
+    value.sprintId = Number(searchParams.get('sprintId'))
+    taskApi.createTask(value)
+  }
+  const onFinishFailed = () => {}
+
   return (
     <div className={styles.container}>
       <Form
@@ -24,18 +26,18 @@ export function CreateTask(): JSX.Element {
       >
         <h2 className={styles.separated}>Create Task</h2>
 
-        <Form.Item<FieldType>
+        <Form.Item<CreateTaskRequest>
           label="Title"
           name="title"
-          rules={[{ required: true, message: "Please input your email!" }]}
+          rules={[{ required: true, message: 'Please input your email!' }]}
         >
           <Input />
         </Form.Item>
 
-        <Form.Item<FieldType>
+        <Form.Item<CreateTaskRequest>
           label="Description"
           name="description"
-          rules={[{ required: true, message: "Please input your first name!" }]}
+          rules={[{ required: true, message: 'Please input your first name!' }]}
         >
           <TextArea rows={4} placeholder="maxLength is 500" maxLength={500} />
         </Form.Item>
@@ -47,5 +49,5 @@ export function CreateTask(): JSX.Element {
         </Form.Item>
       </Form>
     </div>
-  );
+  )
 }

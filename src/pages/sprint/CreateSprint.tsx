@@ -1,16 +1,18 @@
-import { Form, Input, Button, DatePicker } from "antd";
-import styles from "./CreateSprint.module.css";
+import { Form, Input, Button, DatePicker } from 'antd'
+import styles from './CreateSprint.module.css'
+import { CreateSprintRequest } from 'types/SprintTypes'
+import { sprintApi } from 'api/sprintApi'
+import { useSearchParams } from 'react-router-dom'
 
-type FieldType = {
-  title: string;
-  finishDate: string;
-};
-
-const onFinish = () => {};
-const onFinishFailed = () => {};
-const onChange = () => {};
+const dateFormat = 'YYYY-MM-DD'
 
 export function CreateSprint() {
+  const [searchParams] = useSearchParams()
+  const onFinish = (value: CreateSprintRequest) => {
+    value.projectId = Number(searchParams.get('projectId'))
+    sprintApi.startSprint(value)
+  }
+  const onFinishFailed = () => {}
   return (
     <div className={styles.container}>
       <Form
@@ -24,20 +26,20 @@ export function CreateSprint() {
       >
         <h2 className={styles.separated}>Create Sprint</h2>
 
-        <Form.Item<FieldType>
+        <Form.Item<CreateSprintRequest>
           label="Title"
           name="title"
-          rules={[{ required: true, message: "Please input title!" }]}
+          rules={[{ required: true, message: 'Please input title!' }]}
         >
           <Input />
         </Form.Item>
 
-        <Form.Item<FieldType>
+        <Form.Item<CreateSprintRequest>
           label="Finish Date"
           name="finishDate"
-          rules={[{ required: true, message: "Please input finish date!" }]}
+          rules={[{ required: true, message: 'Please input finish date!' }]}
         >
-          <DatePicker onChange={onChange} />
+          <DatePicker format={'YYYY-MM-DD'} />
         </Form.Item>
 
         <Form.Item style={{ margin: 0 }} wrapperCol={{ offset: 4, span: 16 }}>
@@ -47,5 +49,5 @@ export function CreateSprint() {
         </Form.Item>
       </Form>
     </div>
-  );
+  )
 }

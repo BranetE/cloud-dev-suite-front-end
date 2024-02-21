@@ -1,4 +1,4 @@
-import { Button, List, Progress } from 'antd'
+import { List, Progress } from 'antd'
 import styles from './Sprints.module.css'
 import { SprintType } from 'types/SprintTypes'
 import { useNavigate } from 'react-router-dom'
@@ -18,7 +18,6 @@ export function Sprints(props: ISprints): JSX.Element {
 
   return (
     <>
-      <Button onClick={() => navigate('/create-sprint')}>Create Sprint</Button>
       <List
         className={styles.container}
         dataSource={props.sprints}

@@ -11,6 +11,9 @@ export const projectApi = {
   getProject(projectId: string) {
     return instance.get<ProjectType>(`/project/${projectId}`)
   },
+  getAllProjects() {
+    return instance.get<ProjectType[]>(`/project`)
+  },
   addEmployee(projectId: string, employeeId: string) {
     return instance.patch(`/project/${projectId}/addEmployee/${employeeId}`)
   },

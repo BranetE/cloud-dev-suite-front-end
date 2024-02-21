@@ -1,4 +1,4 @@
-import { Layout } from 'antd'
+import { Button, Layout } from 'antd'
 import Sider from 'antd/es/layout/Sider'
 import { Content } from 'antd/es/layout/layout'
 import { projectApi } from 'api/projectAPI'
@@ -6,7 +6,7 @@ import { sprintApi } from 'api/sprintApi'
 import { Project } from 'components/project/Project'
 import { Sprints } from 'components/sprint/Sprints'
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { ProjectType } from 'types/ProjectTypes'
 import { SprintType } from 'types/SprintTypes'
 
@@ -28,6 +28,7 @@ export function ProjectPage() {
     status: '',
   })
   const [sprints, setSprints] = useState<SprintType[]>([])
+  const navigate = useNavigate()
 
   useEffect(() => {
     projectApi.getProject(projectId).then((res) => setProject(res.data))
@@ -43,6 +44,11 @@ export function ProjectPage() {
       </Sider>
       <Layout>
         <Content>
+          <Button
+            onClick={() => navigate(`/create-sprint?projectId=${projectId}`)}
+          >
+            Create Sprint
+          </Button>
           <Sprints sprints={sprints} />
         </Content>
       </Layout>

@@ -15,8 +15,12 @@ export const employeeApi = {
   },
   getEmployeesByPositionAndExperience(position?: string, experience?: string) {
     const params = new URLSearchParams()
-    params.append('position', `${position}`)
-    params.append('experience', `${experience}`)
+    if (position !== undefined) {
+      params.append('position', `${position}`)
+    }
+    if (experience !== undefined) {
+      params.append('experience', `${experience}`)
+    }
 
     return instance.get<EmployeeCompactType[]>(
       `/employee/getByPositionAndOrExperience`,

@@ -1,4 +1,4 @@
-import { Layout } from 'antd'
+import { Button, Layout } from 'antd'
 import Sider from 'antd/es/layout/Sider'
 import { Content } from 'antd/es/layout/layout'
 import { sprintApi } from 'api/sprintApi'
@@ -7,7 +7,7 @@ import { Sprint } from 'components/sprint/Sprint'
 import { Tasks } from 'components/task/Tasks'
 import { LayoutStyle, SiderStyle } from 'pages/styles/Styles'
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { SprintType } from 'types/SprintTypes'
 import { TaskType } from 'types/TaskTypes'
 
@@ -20,6 +20,7 @@ export function SprintPage(): JSX.Element {
     startDate: '',
   })
   const [tasks, setTasks] = useState<TaskType[]>([])
+  const navigate = useNavigate()
 
   useEffect(() => {
     sprintApi.getSprint(sprintId).then((res) => setSprint(res.data))
@@ -33,6 +34,9 @@ export function SprintPage(): JSX.Element {
       </Sider>
       <Layout>
         <Content>
+          <Button onClick={() => navigate(`/create-task?sprintId=${sprintId}`)}>
+            Create Task
+          </Button>
           <Tasks tasks={tasks} />
         </Content>
       </Layout>

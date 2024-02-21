@@ -1,4 +1,4 @@
-import { List, Card, Button } from 'antd'
+import { List, Card } from 'antd'
 import { ReconciliationTwoTone } from '@ant-design/icons'
 import styles from './Tasks.module.css'
 import { ProgressIcon } from './ProgressIcon'
@@ -18,7 +18,6 @@ export function Tasks(props: ITasks): JSX.Element {
 
   return (
     <>
-      <Button onClick={() => navigate('/create-task')}>Create Task</Button>
       <List
         className={styles.container}
         grid={{ gutter: 16, column: 6 }}

@@ -1,12 +1,13 @@
 export interface CreateSprintRequest {
-  title: string;
-  project: number;
+  title: string
+  projectId: number
+  finishDate: string
 }
 
 export type SprintType = {
-  id: number;
-  title: string;
-  status: string;
-  startDate: string;
-  endDate?: string;
-};
+  id: number
+  title: string
+  status: string
+  startDate: string
+  endDate?: string
+}

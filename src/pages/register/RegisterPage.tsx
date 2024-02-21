@@ -27,6 +27,10 @@ const positions = [
     value: 'DESIGNER',
     label: 'Designer',
   },
+  {
+    value: 'TEAM_LEAD',
+    label: 'Team Lead',
+  },
 ]
 
 const experiences = [

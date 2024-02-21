@@ -15,6 +15,7 @@ import { ShiftType } from 'types/ShiftTypes'
 import { ProjectType } from 'types/ProjectTypes'
 import { shiftApi } from 'api/shiftAPI'
 import { projectApi } from 'api/projectAPI'
+import { useGetLoggedIn } from 'provider/AuthProvider'
 
 const LayoutStyle = {
   backgroundColor: 'rgba(240, 240, 240, 0.979)',
@@ -52,17 +53,21 @@ export function EmployeePage(): JSX.Element {
   const [taskButtonState, setTaskButtonState] = useState<boolean>(true)
   const [shiftButtonState, setShiftButtonState] = useState<boolean>(false)
   const [projectButtonState, setProjectButtonState] = useState<boolean>(true)
-
+  const { position } = useGetLoggedIn()
   useEffect(() => {
     employeeApi.getEmployee(employeeId).then((res) => setEmployee(res.data))
     taskApi.getAllTasksByEmployee(employeeId).then((res) => setTasks(res.data))
     shiftApi
       .getAllShiftsByEmployee(employeeId)
       .then((res) => setShifts(res.data))
-    projectApi
-      .getAllProjectsByEmployee(employeeId)
-      .then((res) => setProjects(res.data))
-  }, [employeeId])
+    if (position == 'MANAGER') {
+      projectApi.getAllProjects().then((res) => setProjects(res.data))
+    } else {
+      projectApi
+        .getAllProjectsByEmployee(employeeId)
+        .then((res) => setProjects(res.data))
+    }
+  }, [employeeId, position])
 
   const RenderCorrectView = ({
     contentType,
