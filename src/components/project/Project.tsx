@@ -1,27 +1,44 @@
-import { ProjectType } from "types/ProjectTypes";
-import styles from "./Project.module.css";
+import { ProjectType } from 'types/ProjectTypes'
+import { Divider, Flex, Typography } from 'antd'
+import { TitleStyle } from '../../styles/Styles'
 
 interface IProject {
-  project: ProjectType;
+  project: ProjectType
 }
+
+const { Title } = Typography
 
 export function Project(props: IProject): JSX.Element {
   return (
-    <div className={styles.container}>
-      <h2>{props.project.title}</h2>
-      <div className={styles.description}>
-        <h3>Description</h3>
-        <p>{props.project.description}</p>
+    <Flex vertical style={{ alignItems: 'center' }}>
+      <div>
+        <Divider>Title</Divider>
+        <Title level={4} style={TitleStyle}>
+          {props.project.title}
+        </Title>
       </div>
-      {/* <div className={styles.teamLead}>
-                <h3>Team Lead</h3>
-                <p>{props.project.teamLead.firstName}</p>
-                <p>{props.project.teamLead.lastName}</p>
-            </div> */}
-      <div className={styles.startDate}>
-        <h3>Start Date</h3>
-        <p>{props.project.startDate}</p>
+      {props.project.startDate ? (
+        <div>
+          <Divider>Start Date</Divider>
+          <Title level={4} style={TitleStyle}>
+            {new Date(props.project.startDate).toLocaleDateString()}
+          </Title>
+        </div>
+      ) : (
+        <></>
+      )}
+      <div>
+        <Divider>Status</Divider>
+        <Title level={4} style={TitleStyle}>
+          {props.project.status}
+        </Title>
       </div>
-    </div>
-  );
+      <div>
+        <Divider>Description</Divider>
+        <Title level={5} style={TitleStyle}>
+          {props.project.description}
+        </Title>
+      </div>
+    </Flex>
+  )
 }

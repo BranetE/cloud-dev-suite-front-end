@@ -1,26 +1,48 @@
-import { SprintType } from "types/SprintTypes";
-import styles from "./Sprint.module.css";
+import { SprintType } from 'types/SprintTypes'
+import { Button, Divider, Flex, Typography } from 'antd'
+import { TitleStyle } from '../../styles/Styles'
+import { useDecodeJwtToken } from 'util/decodeToken'
+
+const { Title } = Typography
 
 interface ISprint {
-  sprint: SprintType;
+  sprint: SprintType
 }
 
 export function Sprint(props: ISprint): JSX.Element {
+  const { position } = useDecodeJwtToken()
+
   return (
-    <div className={styles.container}>
-      <div>
-        <h2>{props.sprint.title}</h2>
-      </div>
-      <div className={styles.status}>
-        <h3>Status</h3>
-        <p>{props.sprint.status}</p>
-      </div>
-      <div className={styles.dates}>
-        <h3>Start Date</h3>
-        <p>{props.sprint.startDate}</p>
-        <h3>End Date</h3>
-        <p>{props.sprint.endDate}</p>
-      </div>
-    </div>
-  );
+    <Flex vertical style={{ alignItems: 'center' }}>
+      <Divider>Title</Divider>
+      <Title level={4} style={TitleStyle}>
+        {props.sprint.title}
+      </Title>
+      <Divider>Status</Divider>
+      <Title level={4} style={TitleStyle}>
+        {props.sprint.status}
+      </Title>
+      <Divider>Start Date</Divider>
+      <Title level={4} style={TitleStyle}>
+        {props.sprint.startDate}
+      </Title>
+      {props.sprint.endDate ? (
+        <>
+          <Divider>End Date</Divider>
+          <Title level={4} style={TitleStyle}>
+            {props.sprint.endDate}
+          </Title>
+        </>
+      ) : (
+        <></>
+      )}
+      {position == 'TEAM_LEAD' ? (
+        <Button type="primary" danger>
+          End Sprint
+        </Button>
+      ) : (
+        <></>
+      )}
+    </Flex>
+  )
 }

@@ -6,9 +6,18 @@ import { useSearchParams } from 'react-router-dom'
 
 const dateFormat = 'YYYY-MM-DD'
 
+const formatDateString = (dateString: string) => {
+  const date = new Date(dateString)
+  const year = date.getFullYear()
+  const month = (date.getMonth() + 1).toString().padStart(2, '0')
+  const day = date.getDate().toString().padStart(2, '0')
+  return `${year}-${month}-${day}`
+}
+
 export function CreateSprint() {
   const [searchParams] = useSearchParams()
   const onFinish = (value: CreateSprintRequest) => {
+    value.finishDate = formatDateString(value.finishDate)
     value.projectId = Number(searchParams.get('projectId'))
     sprintApi.startSprint(value)
   }
@@ -39,7 +48,7 @@ export function CreateSprint() {
           name="finishDate"
           rules={[{ required: true, message: 'Please input finish date!' }]}
         >
-          <DatePicker format={'YYYY-MM-DD'} />
+          <DatePicker format={dateFormat} />
         </Form.Item>
 
         <Form.Item style={{ margin: 0 }} wrapperCol={{ offset: 4, span: 16 }}>

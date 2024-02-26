@@ -1,37 +1,49 @@
-import { Button } from "antd";
-import Avatar from "antd/es/avatar/avatar";
-import { UserOutlined } from "@ant-design/icons";
-import styles from "./Employee.module.css";
-import { EmployeeType } from "types/EmployeeTypes";
+import { Button, Divider, Flex, Typography } from 'antd'
+import Avatar from 'antd/es/avatar/avatar'
+import { UserOutlined } from '@ant-design/icons'
+import { EmployeeType } from 'types/EmployeeTypes'
+import { useAuth } from 'provider/AuthProvider'
+import { TitleStyle } from 'styles/Styles'
+
+const { Title } = Typography
 
 interface IEmployee {
-  employee: EmployeeType;
+  employee: EmployeeType
 }
 
 export function Employee(props: IEmployee): JSX.Element {
+  const { logout } = useAuth()
   return (
-    <div className={styles.employee}>
+    <Flex vertical style={{ alignItems: 'center' }}>
       <Avatar size={64} icon={<UserOutlined />} />
-      <div>
-        <h5 className={styles.email}>Email:</h5>
-        <p>{props.employee.email}</p>
-        <h5>First Name:</h5>
-        <p>{props.employee.firstName}</p>
-        <h5>Last Name:</h5>
-        <p>{props.employee.lastName}</p>
-        <h5>Position:</h5>
-        <p>{props.employee.position}</p>
-        <h5>Experience:</h5>
-        <p>{props.employee.experience}</p>
-      </div>
+      <Divider>Email</Divider>
+      <Title level={4} style={TitleStyle}>
+        {props.employee.email}
+      </Title>
+      <Divider>First Name</Divider>
+      <Title level={4} style={TitleStyle}>
+        {props.employee.firstName}
+      </Title>
+      <Divider>Last Name</Divider>
+      <Title level={4} style={TitleStyle}>
+        {props.employee.lastName}
+      </Title>
+      <Divider>Position</Divider>
+      <Title level={4} style={TitleStyle}>
+        {props.employee.position}
+      </Title>
+      <Divider>Experience</Divider>
+      <Title level={4} style={TitleStyle}>
+        {props.employee.experience}
+      </Title>
       <Button
-        className={styles.button}
         type="primary"
+        style={{ marginTop: '50px' }}
         danger
-        onClick={() => {}}
+        onClick={logout}
       >
         Log Out
       </Button>
-    </div>
-  );
+    </Flex>
+  )
 }

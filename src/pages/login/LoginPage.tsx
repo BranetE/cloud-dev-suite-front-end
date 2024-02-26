@@ -3,7 +3,7 @@ import styles from './LoginPage.module.css'
 import FormItem from 'antd/es/form/FormItem'
 import logo from 'assets/logo.png'
 import { authAPI } from 'api/authAPI'
-import { useAuth, useGetLoggedIn } from 'provider/AuthProvider'
+import { useAuth } from 'provider/AuthProvider'
 import { useNavigate } from 'react-router-dom'
 
 type FieldType = {
@@ -12,13 +12,13 @@ type FieldType = {
 }
 
 export function LoginPage(): JSX.Element {
-  const { setToken } = useAuth()
-  const { id } = useGetLoggedIn()
+  const { login } = useAuth()
   const navigate = useNavigate()
 
   const onFinish = (values: FieldType) => {
-    authAPI.login(values).then((res) => setToken(res.data.accessToken))
-    navigate(`/employee/${id}`)
+    authAPI.login(values).then((res) => {
+      login(res.data.accessToken)
+    })
   }
 
   const onFinishFailed = (errorInfo: unknown) => {

@@ -3,6 +3,8 @@ import { ProjectTwoTone } from '@ant-design/icons'
 import styles from './Projects.module.css'
 import { ProjectType } from 'types/ProjectTypes'
 import { useNavigate } from 'react-router-dom'
+import { TitleStyle } from 'styles/Styles'
+import { useDecodeJwtToken } from 'util/decodeToken'
 
 interface IProjects {
   projects: ProjectType[]
@@ -10,6 +12,7 @@ interface IProjects {
 
 export function Projects(props: IProjects): JSX.Element {
   const navigate = useNavigate()
+  const { position } = useDecodeJwtToken()
 
   const navigateToProject = (projectId: number) => {
     navigate(`/project/${projectId}`)
@@ -17,9 +20,18 @@ export function Projects(props: IProjects): JSX.Element {
 
   return (
     <>
-      <Button onClick={() => navigate('/create-project')}>
-        Create Project
-      </Button>
+      {position == 'MANAGER' ? (
+        <Button
+          type="primary"
+          style={{ margin: '1em 0 0 1em' }}
+          onClick={() => navigate('/create-project')}
+        >
+          Create Project
+        </Button>
+      ) : (
+        <></>
+      )}
+
       <List
         className={styles.container}
         dataSource={props.projects}
@@ -27,9 +39,11 @@ export function Projects(props: IProjects): JSX.Element {
           <List.Item key={project.id} className={styles.project}>
             <div className={styles.leftEnd}>
               <ProjectTwoTone />
-              <h3>{project.title}</h3>
+              <h3 style={TitleStyle}>{project.title}</h3>
             </div>
-            <p>{project.description}</p>
+            <p style={{ width: '70%', overflow: 'hidden' }}>
+              {project.description}
+            </p>
             <h4 className={styles.status}>Status: {project.status}</h4>
             <a
               className={styles.link}

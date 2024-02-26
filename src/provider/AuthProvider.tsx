@@ -7,16 +7,19 @@ import {
   useMemo,
   useState,
 } from 'react'
-import { jwtDecode } from 'jwt-decode'
+import { useNavigate } from 'react-router-dom'
+import { decodeToken } from 'util/decodeToken'
 
 interface IAuthContext {
   token: string | null
-  setToken: (newToken: string) => void
+  login: (token: string) => void
+  logout: () => void
 }
 
 const INITIAL_VALUE: IAuthContext = {
-  token: '',
-  setToken: () => {},
+  token: null,
+  login: () => {},
+  logout: () => {},
 }
 
 const AuthContext = createContext<IAuthContext>(INITIAL_VALUE)
@@ -26,7 +29,8 @@ interface IAuthProvider {
 }
 
 export function AuthProvider({ children }: IAuthProvider): JSX.Element {
-  const [token, setToken_] = useState(localStorage.getItem('token'))
+  const [token, setToken] = useState(localStorage.getItem('token'))
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (token) {
@@ -38,14 +42,20 @@ export function AuthProvider({ children }: IAuthProvider): JSX.Element {
     }
   }, [token])
 
-  const setToken = (newToken: string) => {
-    setToken_(newToken)
+  const login = (token: string) => {
+    setToken(token)
+    const { id } = decodeToken(token)
+    navigate(`/employee/${id}`)
+  }
+  const logout = () => {
+    setToken(null)
   }
 
   const contextValue = useMemo(
     () => ({
       token,
-      setToken,
+      login,
+      logout,
     }),
     [token]
   )
@@ -57,20 +67,4 @@ export function AuthProvider({ children }: IAuthProvider): JSX.Element {
 
 export const useAuth = () => {
   return useContext(AuthContext)
-}
-
-interface ILoggedIn {
-  id: string
-  position: string
-  sub: string
-}
-
-export const useGetLoggedIn = () => {
-  const { token } = useContext(AuthContext)
-
-  if (token) {
-    return jwtDecode<ILoggedIn>(token)
-  } else {
-    return { id: '0', position: '', sub: '' }
-  }
 }

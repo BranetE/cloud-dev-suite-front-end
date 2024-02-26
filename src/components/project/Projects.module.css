@@ -1,5 +1,7 @@
 .container {
-  background-color: rgba(240, 240, 240, 0.979);
+  /* background-color: rgba(240, 240, 240, 0.979); */
+  margin-left: 1em;
+  margin-top: 1em;
   padding-right: 16px;
 }
 
@@ -13,10 +15,11 @@
 }
 
 .leftEnd {
+  display: inline;
   width: 25%;
   text-align: center;
-  margin-left: 20px;
-  margin-right: 20px;
+  /* margin-left: 2em;
+  margin-right: 2em; */
 }
 
 .status {

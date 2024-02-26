@@ -2,7 +2,7 @@ import { Layout } from 'antd'
 import Sider from 'antd/es/layout/Sider'
 import { Content } from 'antd/es/layout/layout'
 import { Shift } from 'components/shift/Shift'
-import { LayoutStyle, SiderStyle } from 'pages/styles/Styles'
+import { LayoutStyle, SiderStyle } from 'styles/Styles'
 import { useParams } from 'react-router-dom'
 import { ShiftType } from 'types/ShiftTypes'
 import { useEffect, useState } from 'react'
@@ -15,8 +15,10 @@ export function ShiftPage(): JSX.Element {
   const { shiftId } = useParams() as { shiftId: string }
   const [shift, setShift] = useState<ShiftType>({
     id: 0,
-    shiftType: '',
+    shiftType: 'Remote',
     startTime: '',
+    endTime: '',
+    employeeId: '0',
   })
   const [tasks, setTasks] = useState<TaskType[]>([])
 

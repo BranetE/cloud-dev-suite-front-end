@@ -17,7 +17,13 @@ export function Shifts(props: IShifts): JSX.Element {
 
   return (
     <>
-      <Button onClick={() => navigate('open-shift')}>Open Shift</Button>
+      <Button
+        type="primary"
+        style={{ margin: '15px 0 0 15px' }}
+        onClick={() => navigate('/open-shift')}
+      >
+        Open Shift
+      </Button>
       <List
         className={styles.container}
         grid={{ gutter: 16, column: 6 }}
@@ -26,13 +32,19 @@ export function Shifts(props: IShifts): JSX.Element {
           <List.Item>
             <Card className={styles.shift}>
               <p className={styles.startTime}>
-                Start Time: <b>{shift.startTime}</b>
+                Start Time:{' '}
+                <b>{new Date(shift.startTime).toLocaleDateString()}</b>
               </p>
+              {shift.endTime ? (
+                <p>
+                  End Time:{' '}
+                  <b>{new Date(shift.endTime).toLocaleDateString()}</b>
+                </p>
+              ) : (
+                <></>
+              )}
               <p>
-                End Time: <b>{shift.endTime}</b>
-              </p>
-              <p>
-                {shift.shiftType === 'Remote' ? (
+                {shift.shiftType === 'REMOTE' ? (
                   <CloudTwoTone />
                 ) : (
                   <HomeTwoTone />
